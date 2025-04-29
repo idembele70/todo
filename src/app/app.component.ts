@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Todo } from './Todo';
+import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-root',
@@ -11,38 +11,22 @@ import { Todo } from './Todo';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  private _todos: Todo[] = [
-    {
-      id:1, content: 'Todo 1', done: false, createdAt: new Date()
-    },
-    {
-      id:2, content: 'Todo 2', done: true, createdAt: new Date(),
-    }
-  ]
 
-  get todos() {
-    return this._todos
-  }
+  constructor(private readonly todoService: TodoService) {}
 
   addTodo(event: SubmitEvent, content: string) {
-    event.preventDefault();
-    this._todos.push(
-      {
-        id: this._todos.length + 1,
-        content,
-        done: false,
-        createdAt: new Date()
-      }
-    )
-    }
+    this.todoService.addTodo(event, content)
+  }
 
-  toggleDone(id:number) {
-    const todo = this._todos.find(todo => todo.id === id)
-    if(todo)
-      todo.done = !todo.done
-    }
+  toggleDone(id: number) {
+    this.todoService.toggleDone(id)
+  }
 
   deleteTodo(id: number) {
-    this._todos = this._todos.filter(todo => todo.id !== id)
+    this.todoService.deleteTodo(id)
+  }
+
+  get todos() {
+    return this.todoService.todos
   }
 }
