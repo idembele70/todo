@@ -31,9 +31,13 @@ describe('TodoService', () => {
   it('should delete todo by id', () => {
     const count = todoService.addTodo.length
     const todo = todoService.todos[0]
-
     todoService.deleteTodo(todo.id)
     const numberOfDeleteTodos = 1
     expect(todoService.todos.length).toEqual(count - numberOfDeleteTodos)
+  })
+  
+  it('should return an array of todos', () => {
+    const todos = todoService.todos
+    expect(Array.isArray(todos)).toBe(true)
   })
 });
