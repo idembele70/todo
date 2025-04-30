@@ -9,18 +9,6 @@ export class TodoService {
 
   public todoSubject = new Subject<Todo[]>();
   private _todos: Todo[] = [
-    {
-      id: id(),
-      content: 'My first todo content',
-      createdAt: new Date(),
-      done: false
-    },
-    {
-      id: id(),
-      content: 'My second todo content',
-      createdAt: new Date(),
-      done: false
-    },
   ];
 
   constructor() { }
@@ -50,5 +38,16 @@ export class TodoService {
         done: false
       }
     )
+  }
+
+  /**
+   * Check if a todo with the specified text content exists.
+   * 
+   * @param {string} content - the text content to search for.
+   * 
+   * @returns {boolean} `true` if a matching todo exists, otherwise false.
+   */
+  public todoExists(content: string): boolean {
+    return !!this._todos.find(todo => todo.content === content)
   }
 }
