@@ -1,16 +1,1 @@
 <h1>Liste des taches</h1>
-
-<form (submit)="addTodo($event, input.value)" class="w-50 m-auto">
-  <label for="">Ajouter une tache</label>
-  <input #input class="form-control" type="text">
-  <button class="btn btn-primary">Ajouter</button>
-</form>
-<h2 *ngIf="todos.length === 0">Il n'y a pas de taches.</h2>
-<ul *ngIf="todos.length > 0">
-  <li *ngFor="let todo of todos" [style.backgroundColor]="todo.done ? 'green' : 'orange'" >
-    <h4>{{ todo.content | uppercase }}</h4>
-    <p>Crée le {{ todo.createdAt | date:'short' }}</p>
-    <input type="checkbox" name="done" id="done" [checked]="todo.done" (click)="toggleDone(todo.id)">
-    <button (click)="deleteTodo(todo.id)" class="btn btn-danger">Supprimer</button>
-  </li>
-</ul>

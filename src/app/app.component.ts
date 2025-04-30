@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +11,4 @@ import { TodoService } from './todo.service';
 })
 export class AppComponent {
 
-  constructor(private readonly todoService: TodoService) {}
-
-  addTodo(event: SubmitEvent, content: string) {
-    this.todoService.addTodo(event, content)
-  }
-
-  toggleDone(id: number) {
-    this.todoService.toggleDone(id)
-  }
-
-  deleteTodo(id: number) {
-    this.todoService.deleteTodo(id)
-  }
-
-  get todos() {
-    return this.todoService.todos
-  }
 }
