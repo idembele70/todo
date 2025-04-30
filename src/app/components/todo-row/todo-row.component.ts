@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Todo } from '../../models/todo';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-todo-row',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './todo-row.component.html',
   styleUrl: './todo-row.component.css'
 })

@@ -14,9 +14,14 @@ import { TodoService } from '../../services/todo/todo.service';
 export class AddTodoComponent implements OnInit, OnDestroy {
   public newTodoText: string = '';
   public todosSubscription: Subscription;
-  public todos: Todo[] = []
+  public todos: Todo[];
+  public disableAddBtn: boolean;
+  public disableAddInput: boolean;
   constructor(private todoService: TodoService) {
     this.todosSubscription = new Subscription();
+    this.todos = []
+    this.disableAddBtn = false;
+    this.disableAddInput = false;
   }
 
   ngOnInit(): void {
@@ -41,8 +46,21 @@ export class AddTodoComponent implements OnInit, OnDestroy {
       this.todosSubscription.unsubscribe()
   }
 
-  public onAddTodo() {
-    
+  public onUpdateNewTodoText() {
+    const todoExist = this.todoService.todoExists(this.newTodoText)
+    if(todoExist) 
+      this.disableAddBtn = true
+    else if( this.disableAddBtn)
+      this.disableAddBtn = false
   }
 
+  public onAddTodo() {
+    this.disableAddInput = true
+    this.disableAddBtn = true
+    this.todoService.addTodo(this.newTodoText)
+    this.newTodoText = ''
+    this.todoService.emitTodos()
+    this.disableAddInput = false
+    this.disableAddBtn = false
+  }
 }

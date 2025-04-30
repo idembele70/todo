@@ -1,6 +1,6 @@
 <h1 class="mx-auto mt-2 mb-1 title">Todos</h1>
 
 <div class="input-group mb-3">
-  <input type="text" [(ngModel)]="newTodoText" class="form-control" placeholder="What needs to be done?" aria-label="what needs to be done?" aria-describedby="add-todo">
-  <button class="btn btn-primary" type="button" id="add-todo" (click)="onAddTodo()">Add</button>
+  <input type="text" [(ngModel)]="newTodoText" (ngModelChange)="onUpdateNewTodoText()" [disabled]="disableAddInput" class="form-control" placeholder="What needs to be done?" aria-label="what needs to be done?" aria-describedby="add-todo">
+  <button class="btn btn-primary" type="button" id="add-todo" (click)="onAddTodo()" [disabled]="disableAddBtn || newTodoText === ''">Add</button>
 </div>
