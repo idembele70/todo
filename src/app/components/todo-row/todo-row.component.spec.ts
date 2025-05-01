@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TodoRowComponent } from './todo-row.component';
 
 describe('TodoRowComponent', () => {
@@ -10,8 +9,8 @@ describe('TodoRowComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TodoRowComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TodoRowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

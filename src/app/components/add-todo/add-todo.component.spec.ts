@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Subject } from 'rxjs';
 import { Todo } from '../../models/todo';
 import { TodoService } from '../../services/todo/todo.service';
@@ -61,11 +60,11 @@ describe('AddTodoComponent', () => {
     component.disableAddBtn = false;
     component.disableAddInput = false;
 
-    component.onAddTodo()
+    component.onAddTodo();
 
     expect(component.newTodoText).toBe('');
     expect(todoServiceMock.emitTodos).toHaveBeenCalled();
-    expect(component.disableAddInput).toBeFalse()
-    expect(component.disableAddBtn).toBeFalse()
+    expect(component.disableAddInput).toBeFalse();
+    expect(component.disableAddBtn).toBeFalse();
   })
 });

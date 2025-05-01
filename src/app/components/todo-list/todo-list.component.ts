@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TodoRowComponent } from "../todo-row/todo-row.component";
-import { Subscription } from 'rxjs';
-import { TodoService } from '../../services/todo/todo.service';
-import { Todo } from '../../models/todo';
 import { NgForOf } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Todo } from '../../models/todo';
+import { TodoService } from '../../services/todo/todo.service';
+import { TodoRowComponent } from "../todo-row/todo-row.component";
 
 @Component({
   selector: 'app-todo-list',
@@ -22,23 +22,23 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-      this.todosSubscription = this.todoService.todoSubject.subscribe(
-        {
-          next: (todos: Todo[]) => {
-            this.todos = todos
-          },
-          error: (err)=> {
-            console.error(
-              'An error has occured when subscribing to todoSubject',
-              err
-            );
-          }
+    this.todosSubscription = this.todoService.todoSubject.subscribe(
+      {
+        next: (todos: Todo[]) => {
+          this.todos = todos
+        },
+        error: (err) => {
+          console.error(
+            'An error has occured when subscribing to todoSubject',
+            err
+          );
         }
-      )
-      this.todoService.emitTodos()
+      }
+    )
+    this.todoService.emitTodos()
   }
 
   ngOnDestroy(): void {
-      this.todosSubscription.unsubscribe()
+    this.todosSubscription.unsubscribe()
   }
 }

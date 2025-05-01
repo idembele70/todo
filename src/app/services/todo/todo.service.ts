@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Todo } from '../../models/todo';
 import { v1 as id } from 'uuid';
+import { Todo } from '../../models/todo';
 @Injectable({
   providedIn: 'root'
 })
