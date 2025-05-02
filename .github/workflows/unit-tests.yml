@@ -37,5 +37,10 @@ jobs:
         with:
           filename: coverage/todo/cobertura-coverage.xml
           badge: true
+          fail_below_min: true
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
           format: markdown
           output: both
+          thresholds: '60 80'
