@@ -63,4 +63,16 @@ export class TodoService {
     todo.done = !todo.done;
     return todo.done;
   }
+
+  /**
+   * Delete a todo using its ID.
+   * 
+   * @param {string} id - ID of the todo to delete.
+   * 
+   * @returns {void} No return value; performs deletion action of a todo.
+   */
+  public deleteOneTodo(id: string): void {
+    const index = this._todos.findIndex(todo => todo.id === id);
+    this._todos.splice(index, 1);
+  }
 }
