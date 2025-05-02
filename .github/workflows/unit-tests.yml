@@ -25,7 +25,9 @@ jobs:
           path: test-results/junit-results.xml
       
       - name: Define Test result title
-        run: echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+        run:  |
+          echo "## Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
       
       - name: Test Report
         uses: dorny/test-reporter@v2
@@ -34,7 +36,7 @@ jobs:
           name: Unit Tests
           path: test-results/junit-results.xml
           reporter: java-junit
-          badge-title: 'tests-results'
+          badge-title: 'testsy'
       
       - name: Generate Code Coverage Summary
         uses: irongut/CodeCoverageSummary@v1.3.0
