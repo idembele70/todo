@@ -27,7 +27,6 @@ jobs:
       - name: Define Test result title
         run:  |
           echo "## Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
       
       - name: Test Report
         uses: dorny/test-reporter@v2
