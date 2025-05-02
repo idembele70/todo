@@ -19,36 +19,17 @@ jobs:
           filters: |
             src:
               - 'src/**'
-  build:
-    needs: changes
-    if: ${{  needs.changes.outputs.src == 'true'}}
+  
+  deploy:
+    name: deploy gh-pages
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    needs: changes
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: 'npm'
-      - run: npm i
-      - run: npm run build
-      - name: Save dist
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist/
-  
-  deploy:
-    name: deploy gh-pages
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - run: ls -a
-      - run: npm run deploy 
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
-        with:
-          name: dist
-          path: dist
       - run: npm install
+      - run: npm run build
       - run: npm run deploy
