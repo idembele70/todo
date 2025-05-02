@@ -32,6 +32,11 @@ jobs:
           cache: 'npm'
       - run: npm i
       - run: npm run build
+      - name: Save dist
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
   
   deploy:
     name: deploy gh-pages
@@ -40,3 +45,10 @@ jobs:
     steps:
       - run: ls -a
       - run: npm run deploy 
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+      - run: npm install
+      - run: npm run deploy
