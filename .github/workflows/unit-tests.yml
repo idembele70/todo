@@ -53,6 +53,4 @@ jobs:
       - name: Display coverage in workflow summary
         run: |
           echo "## Code Coverage" >> $GITHUB_STEP_SUMMARY
-          echo "<details><summary>Expand for details</summary>" >> $GITHUB_STEP_SUMMARY
           cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
-          echo " </details>" >> $GITHUB_STEP_SUMMARY
