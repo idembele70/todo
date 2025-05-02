@@ -25,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: changes
     if: ${{ needs.changes.outputs.src == 'true' }}
+    timeout-minutes: 2
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
