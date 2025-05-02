@@ -5,7 +5,6 @@ import { TodoRowComponent } from './todo-row.component';
 describe('TodoRowComponent', () => {
   let component: TodoRowComponent;
   let fixture: ComponentFixture<TodoRowComponent>;
-  let toggleSpy: jasmine.Spy<(id: string) => boolean>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,7 +25,8 @@ describe('TodoRowComponent', () => {
   });
 
   it('should mark a todo as done', fakeAsync(() => {
-    toggleSpy = spyOn(component['todoService'], 'toggleCompletedTodo').and.callThrough();
+    const toggleSpy = spyOn(component['todoService'], 'toggleCompletedTodo').and.callThrough();
+
     const todo: Todo = {
       id: id(),
       content: 'complete todo content',
@@ -52,6 +52,8 @@ describe('TodoRowComponent', () => {
   }));
 
   it('should unmark a completed todo', fakeAsync(() => {
+    const toggleSpy = spyOn(component['todoService'], 'toggleCompletedTodo').and.callThrough();
+
     const todo: Todo = {
       id: id(),
       content: 'undone todo content',
@@ -67,7 +69,7 @@ describe('TodoRowComponent', () => {
     expect(component.disableCheckbox).toBeTrue();
     expect(component.disableCloseBtn).toBeTrue();
 
-    tick(500);
+    tick(100);
 
     expect(component.disableCheckbox).toBeFalse();
     expect(component.disableCloseBtn).toBeFalse();
@@ -75,4 +77,31 @@ describe('TodoRowComponent', () => {
     expect(component['todoService']['_todos'][0].done).toBeFalse();
     expect(toggleSpy).toHaveBeenCalledWith(component.todo.id);
   }));
+
+  it('should delete one todo', fakeAsync(()=> {
+    const deleteSpy = spyOn(component['todoService'], 'deleteOneTodo').and.callThrough();
+    const emitSpy = spyOn(component['deleteTodo'], 'emit');
+
+    const todo: Todo = {
+      id: '1',
+      content: 'todo to delete content',
+      createdAt: new Date(),
+      done: false
+    };
+    component['todoService']['_todos'] = [todo];
+    component.todo = todo;
+
+    component.onDelete();
+
+    expect(component.disableCheckbox).toBeTrue();
+    expect(component.disableCloseBtn).toBeTrue();
+
+    tick(100);
+
+    expect(component.disableCheckbox).toBeFalse();
+    expect(component.disableCloseBtn).toBeFalse();
+
+    expect(deleteSpy).toHaveBeenCalledWith(todo.id);
+    expect(emitSpy).toHaveBeenCalled();
+  }))
 });

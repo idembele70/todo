@@ -4,5 +4,5 @@
   <label class="form-check-label flex-fill" [ngClass]="{'text-decoration-line-through': todo.done}"
     [for]="'complete-todo' + todo.id">{{todo.content}} -- {{todo.createdAt |
     date:'mediumTime'}}</label>
-  <button type="button" class="btn-close" [disabled]="disableCloseBtn"></button>
+  <button type="button" class="btn-close" [disabled]="disableCloseBtn" (click)="onDelete()"></button>
 </li>

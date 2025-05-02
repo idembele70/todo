@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Todo } from '../../models/todo';
 import { TodoService } from './todo.service';
-
+import { v1 as id } from 'uuid';
 describe('TodoService', () => {
   let todoService: TodoService;
 
@@ -56,5 +56,20 @@ describe('TodoService', () => {
 
     todoService.toggleCompletedTodo(todo.id);
     expect(todo.done).toBe(false)
+  })
+
+  it('should delete one todo', () => {
+    const todo: Todo = {
+      id: id(),
+      content: 'todo to remove',
+      createdAt: new Date(),
+      done: false
+    };
+    todoService['_todos'] = [todo];
+
+    todoService.deleteOneTodo(todo.id);
+
+    const numberOfTodoRemaining = 0;
+    expect(todoService['_todos'].length).toEqual(numberOfTodoRemaining);
   })
 });

@@ -41,4 +41,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.todosSubscription.unsubscribe()
   }
+
+  onDeleteOneTodo() {
+    this.todoService.emitTodos();
+  }
 }
