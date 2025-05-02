@@ -15,6 +15,7 @@ export class TodoRowComponent {
   disableCheckbox: boolean;
   disableCloseBtn: boolean;
   @Output() deleteTodo: EventEmitter<unknown>;
+
   constructor(private todoService: TodoService) {
     this.todo = {
       id: "id-default-xyz",
@@ -24,6 +25,7 @@ export class TodoRowComponent {
     };
     this.disableCheckbox = false;
     this.disableCloseBtn = false;
+
     this.deleteTodo = new EventEmitter();
   }
 

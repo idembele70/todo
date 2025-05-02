@@ -5,6 +5,7 @@ import { TodoRowComponent } from './todo-row.component';
 describe('TodoRowComponent', () => {
   let component: TodoRowComponent;
   let fixture: ComponentFixture<TodoRowComponent>;
+  let toggleSpy: jasmine.Spy<(id: string) => boolean>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
