@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { TodoService } from './todo.service';
 import { Todo } from '../../models/todo';
+import { TodoService } from './todo.service';
 
 describe('TodoService', () => {
   let todoService: TodoService;
@@ -43,4 +43,18 @@ describe('TodoService', () => {
     });
     todoService.emitTodos();
   });
+
+  it('should toggle done state of a todo', () => {
+    const content = 'toggle todo completion content';
+    todoService.addTodo(content);
+
+    const todo = todoService['_todos'][0];
+    expect(todo.done).toBeFalse();
+
+    todoService.toggleCompletedTodo(todo.id);
+    expect(todo.done).toBeTrue();
+
+    todoService.toggleCompletedTodo(todo.id);
+    expect(todo.done).toBe(false)
+  })
 });
