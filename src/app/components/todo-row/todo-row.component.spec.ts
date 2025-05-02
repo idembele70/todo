@@ -29,7 +29,7 @@ describe('TodoRowComponent', () => {
     toggleSpy = spyOn(component['todoService'], 'toggleCompletedTodo').and.callThrough();
     const todo: Todo = {
       id: id(),
-      content: 'toggle todo content',
+      content: 'complete todo content',
       createdAt: new Date(),
       done: false
     };
@@ -52,11 +52,9 @@ describe('TodoRowComponent', () => {
   }));
 
   it('should unmark a completed todo', fakeAsync(() => {
-    toggleSpy = spyOn(component['todoService'], 'toggleCompletedTodo').and.callThrough();
-
     const todo: Todo = {
       id: id(),
-      content: 'undone todo',
+      content: 'undone todo content',
       createdAt: new Date(),
       done: true
     };

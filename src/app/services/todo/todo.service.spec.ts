@@ -45,7 +45,7 @@ describe('TodoService', () => {
   });
 
   it('should toggle done state of a todo', () => {
-    const content = 'todo done';
+    const content = 'toggle todo completion content';
     todoService.addTodo(content);
 
     const todo = todoService['_todos'][0];
