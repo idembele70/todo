@@ -30,4 +30,4 @@ jobs:
         with:
           name: Unit Tests
           path: test-results/junit-results.xml
-          reporter: jest-junit
+          reporter: java-junit
