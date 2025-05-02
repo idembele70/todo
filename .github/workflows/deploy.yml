@@ -24,6 +24,7 @@ jobs:
     name: deploy gh-pages
     runs-on: ubuntu-latest
     needs: changes
+    if: ${{ needs.changes.outputs.src == 'true' }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
