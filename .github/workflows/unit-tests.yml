@@ -36,7 +36,7 @@ jobs:
           name: Unit Tests
           path: test-results/junit-results.xml
           reporter: java-junit
-          badge-title: 'testsyy'
+          badge-title: 'tests_results'
       
       - name: Generate Code Coverage Summary
         uses: irongut/CodeCoverageSummary@v1.3.0
