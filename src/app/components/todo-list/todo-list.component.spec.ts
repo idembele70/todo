@@ -36,7 +36,7 @@ describe('TodoListComponent', () => {
     expect(subscribeSpy).toHaveBeenCalled()
   })
 
-  it('should call unsubscribe from todoSubscription on detroy on destroy', () => {
+  it('should call unsubscribe from todoSubscription on detroy', () => {
     const unsubscribeSpy = spyOn(component.todosSubscription, 'unsubscribe')
 
     component.ngOnDestroy();
