@@ -23,3 +23,19 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           reporter: github-pr-review
           level: error
+
+  stylelint:
+    name: runner / stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: stylelint
+        uses: reviewdog/action-stylelint@dd2b435cc6a7c82705307a9dee740c9bbaa10411 # v1.30.2
+        with:
+          reporter: github-pr-review # Change reporter.
+          stylelint_input: '**/*.css'
+
+  
+
+  
+      
