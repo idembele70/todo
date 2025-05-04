@@ -53,6 +53,7 @@ jobs:
       - uses: reviewdog/action-actionlint@a5524e1c19e62881d79c1f1b9b6f09f16356e281 # v1.65.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_level: error
 
   misspell:
     name: runner / misspell
