@@ -12,7 +12,8 @@ jobs:
       src: ${{ steps.changes.outputs.src }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
+      - id: changes
+        uses: dorny/paths-filter@v3
         with:
           filters: |
             src:
@@ -20,7 +21,7 @@ jobs:
 
   unit-test:
     needs: changes
-    if: ${{ needs.changes.outputs.src == 'true' }}
+    if: ${{ needs.changes.outputs.src }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -37,11 +38,11 @@ jobs:
         with:
           name: junit-results
           path: test-results/junit-results.xml
-      
+
       - name: Define Test Result Title
-        run:  |
+        run: |
           echo "## Test Results" >> $GITHUB_STEP_SUMMARY
-      
+
       - name: Test Results Report
         uses: dorny/test-reporter@v2
         if: always()
@@ -50,7 +51,7 @@ jobs:
           path: test-results/junit-results.xml
           reporter: java-junit
           badge-title: 'tests_results'
-      
+
       - name: Generate Code Coverage Summary
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
@@ -63,7 +64,7 @@ jobs:
           format: markdown
           output: both
           thresholds: '60 80'
-      
+
       - name: Display Coverage Title in Workflow Summary
         run: |
           echo "## Code Coverage" >> $GITHUB_STEP_SUMMARY
