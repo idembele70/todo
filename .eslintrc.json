@@ -1,7 +1,7 @@
 {
-	"plugins": ["prettier"],
-	"rules": {
-		"prettier/prettier": "error"
-	},
-	"extends": ["plugin:prettier/recommended", "prettier/flowtype", "prettier/standard"]
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  },
+  "extends": ["plugin:prettier/recommended", "prettier/flowtype", "prettier/standard"]
 }
