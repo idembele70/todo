@@ -10,7 +10,7 @@
     "unit-test": "ng test",
     "unit-test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "e2e-test:local": "npx playwright test --project=local",
-    "e2e-test:ci": "npx playwright test --project=production",
+    "e2e-test:prod": "npx playwright test --project=production",
     "deploy": "gh-pages -d dist/browser"
   },
   "private": true,

@@ -1,15 +1,17 @@
-name: e2e Tests
+name: e2e Test
 on:
-  workflow_run:
-    workflows: ['Unit Tests']
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      TEST_ENV:
+        required: true
+        type: string
 
 jobs:
   e2e-tests:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    env:
+      TEST_ENV: ${{ inputs.TEST_ENV }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,8 +32,13 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npm run e2e-test:ci
+      - name: Run Playwright tests on local
+        if: ${{ env.TEST_ENV == 'local' }}
+        run: npm run e2e-test:local
+
+      - name: Run Playwright tests on production
+        if: ${{ env.TEST_ENV == 'prod' }}
+        run: npm run e2e-test:prod
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
