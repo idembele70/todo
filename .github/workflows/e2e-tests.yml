@@ -35,8 +35,11 @@ jobs:
         uses: actions/cache@v4
         id: playwright-cache
         with:
-          path: ~/.cache/ms-playwright
-          key: cache-playwright-linux-1.49.1
+          path: |
+            ~/.cache/ms-playwright
+          key: cache-playwright-linux-1.52.0
+          restore-keys: |
+            cache-playwright-linux-
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
