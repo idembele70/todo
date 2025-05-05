@@ -1,10 +1,8 @@
 name: e2e Test
 on:
-  workflow_call:
-    inputs:
-      TEST_ENV:
-        required: true
-        type: string
+  push:
+    branches:
+      - 'feature/**'
 
 jobs:
   e2e-tests:
@@ -33,12 +31,10 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests on local
-        if: ${{ env.TEST_ENV == 'local' }}
         run: npm run e2e-test:local
 
-      - name: Run Playwright tests on production
-        if: ${{ env.TEST_ENV == 'prod' }}
-        run: npm run e2e-test:prod
+      # - name: Run Playwright tests on production
+      #   run: npm run e2e-test:prod
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
