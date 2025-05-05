@@ -89,12 +89,12 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: process.env['CI'] ? 'npm run e2e-webserver:start' : 'npm run start',
-    url: process.env['CI']
-      ? 'http://127.0.0.1:4200/todo-angular-seventeen/'
-      : 'http://127.0.0.1:4200',
-    reuseExistingServer: !process.env['CI'],
-    timeout: (!process.env['CI'] ? 120 : 60) * 1000
-  },
+  // webServer: {
+  //   command: process.env['CI'] ? 'npm run e2e-webserver:start' : 'npm run start',
+  //   url: process.env['CI']
+  //     ? 'http://127.0.0.1:4200/todo-angular-seventeen/'
+  //     : 'http://127.0.0.1:4200',
+  //   reuseExistingServer: !process.env['CI'],
+  //   timeout: (!process.env['CI'] ? 120 : 60) * 1000
+  // },
 });

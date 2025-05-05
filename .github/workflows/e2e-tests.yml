@@ -5,9 +5,6 @@ on:
       TEST_ENV:
         required: true
         type: string
-  push:
-    branches:
-      - 'feature/**'
 
 jobs:
   e2e-tests:
@@ -37,7 +34,9 @@ jobs:
 
       - name: Run Playwright tests on local
         if: ${{ env.TEST_ENV == 'local' }}
-        run: npm run e2e-test:local
+        run: |
+          npm run e2e-webserver:start
+          npm run e2e-test:local
 
       - name: Run Playwright tests on production
         if: ${{ env.TEST_ENV == 'prod' }}
