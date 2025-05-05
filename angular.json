@@ -50,11 +50,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "e2e": {
-              "optimization": false,
-              "sourceMap": true,
-              "aot": false
             }
           },
           "defaultConfiguration": "production"
