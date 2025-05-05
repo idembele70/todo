@@ -4,7 +4,6 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-e2e": "ng serve --port=4200 &",
     "build": "ng build",
     "postbuild": "cp dist/browser/index.html dist/browser/404.html",
     "watch": "ng build --watch --configuration development",
@@ -12,6 +11,8 @@
     "unit-test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "e2e-test:local": "npx playwright test --project=local",
     "e2e-test:prod": "npx playwright test --project=production",
+    "e2e-webserver:start": "docker compose up",
+    "e2e-webserver:reset": "docker compose down",
     "deploy": "gh-pages -d dist/browser"
   },
   "private": true,
