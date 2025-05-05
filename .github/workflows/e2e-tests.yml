@@ -27,8 +27,8 @@ jobs:
           restore-keys: |
             ${{runner.os}}-node-
 
-      - name: check playwright
-        run: ls node_modules/@playwright/test
+      # - name: check playwright
+      #   run: ls node_modules/@playwright/test
 
       - name: Install dependencies
         if: steps.cache-npm.outputs.cache-hit != 'true'
