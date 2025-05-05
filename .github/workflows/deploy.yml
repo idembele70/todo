@@ -42,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  e2e-test:
+  run-e2e:
     needs: deploy
     if: ${{needs.deploy.result == 'success'}}
     uses: ./.github/workflows/e2e-tests.yml

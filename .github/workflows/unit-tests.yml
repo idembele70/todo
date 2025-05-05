@@ -62,7 +62,7 @@ jobs:
           echo "## Code Coverage" >> $GITHUB_STEP_SUMMARY
           cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
 
-  e2e-test:
+  run-e2e:
     needs: unit-test
     if: ${{ needs.unit-test.result == 'success' }}
     uses: ./.github/workflows/e2e-tests.yml
