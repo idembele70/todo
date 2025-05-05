@@ -11,7 +11,7 @@
     "unit-test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "e2e-test:local": "npx playwright test --project=local",
     "e2e-test:prod": "npx playwright test --project=production",
-    "e2e-webserver:start": "docker compose up",
+    "e2e-webserver:start": "docker compose up -d",
     "e2e-webserver:reset": "docker compose down",
     "deploy": "gh-pages -d dist/browser"
   },
