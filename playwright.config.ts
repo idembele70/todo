@@ -50,7 +50,7 @@ export default defineConfig({
         ...devices['Desktop Firefox'],
         ...devices['Desktop Safari'],
         baseURL: 'https://idembele70.github.io/todo-angular-seventeen/',
-      }
+      },
     },
     // {
     //   name: 'chromium',
