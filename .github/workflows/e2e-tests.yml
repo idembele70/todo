@@ -32,19 +32,24 @@ jobs:
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').devDependencies['@playwright/test'].version)")" >> $GITHUB_ENV
       - name: Cache Playwright
         uses: actions/cache@v4
         id: playwright-cache
         with:
           path: |
-            /home/runner/.cache/ms-playwright
-          key: cache-playwright-linux-1.52.0
+            ~/.cache/ms-playwright
+          key: ${{runner.os}}-playwright-${{env.PLAYWRIGHT_VERSION}}
           restore-keys: |
-            cache-playwright-linux-
+            ${{runner.os}}-playwright-
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
+        run: |
+          npx playwright install --with-deps
+          npx playwright install-deps
 
       - name: Run Playwright tests on local
         if: ${{ env.TEST_ENV == 'local' }}
