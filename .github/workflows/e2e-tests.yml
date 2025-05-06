@@ -23,11 +23,11 @@ jobs:
         uses: actions/cache@v4
         id: cache-nodemodules
         with:
-          path: ~/.npm
-          key: ${{runner.os}}-node-${{hashFiles('**/package-lock.json')}}
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{hashFiles('**/package-lock.json')}}
           restore-keys: |
-            ${{runner.os}}-node-
-            ${{runner.os}}-
+            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-
 
       - name: Install dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
