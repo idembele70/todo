@@ -36,6 +36,7 @@ jobs:
         id: playwright-version
         run: |
           echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
+
       - name: Cache Playwright
         uses: actions/cache@v4
         id: playwright-cache
@@ -46,20 +47,20 @@ jobs:
           restore-keys: |
             ${{runner.os}}-playwright-
 
-      - run: ls ~/.cache/ms-playwright
-        continue-on-error: true
+      - name: Install OS dependencies for Playwright
+        run: npx playwright install-deps
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: |
-          npx playwright install --with-deps
-          npx playwright install-deps
+        run: npx playwright install
+
+      - name: Start e2e Webserver
+        if: ${{ env.TEST_ENV == 'local' }}
+        run: npm run e2e-webserver:start
 
       - name: Run Playwright tests on local
         if: ${{ env.TEST_ENV == 'local' }}
-        run: |
-          npm run e2e-webserver:start
-          npm run e2e-test:local
+        run: npm run e2e-test:local
 
       - name: Run Playwright tests on production
         if: ${{ env.TEST_ENV == 'prod' }}
