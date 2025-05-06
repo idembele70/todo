@@ -57,7 +57,6 @@ jobs:
 
       - name: Cache Docker images
         uses: ScribeMD/docker-cache@0.5.0
-        id: cache-dockerimages
         with:
           key: docker-${{ runner.os }}-${{ hashFiles('docker-compose.yml') }}
 
