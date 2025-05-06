@@ -47,6 +47,7 @@ jobs:
             ${{runner.os}}-playwright-
 
       - run: ls ~/.cache/ms-playwright
+        continue-on-error: true
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
