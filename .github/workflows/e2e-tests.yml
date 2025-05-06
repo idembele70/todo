@@ -37,7 +37,7 @@ jobs:
         id: playwright-cache
         with:
           path: |
-            ~/.cache/ms-playwright
+            /home/runner/.cache/ms-playwright
           key: cache-playwright-linux-1.52.0
           restore-keys: |
             cache-playwright-linux-
