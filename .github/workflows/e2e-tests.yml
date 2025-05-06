@@ -1,0 +1,76 @@
+name: e2e Test
+
+on:
+  workflow_call:
+    inputs:
+      TEST_ENV:
+        required: true
+        type: string
+
+jobs:
+  e2e-tests:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    env:
+      TEST_ENV: ${{ inputs.TEST_ENV }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        id: cache-nodemodules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Get installed Playwright version
+        id: playwright-version
+        run: |
+          echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
+
+      - name: Cache Playwright
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{runner.os}}-playwright-${{env.PLAYWRIGHT_VERSION}}
+          restore-keys: |
+            ${{runner.os}}-playwright-
+
+      - name: Install OS dependencies for Playwright
+        run: npx playwright install-deps
+
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install
+
+      - name: Start e2e Webserver
+        if: ${{ env.TEST_ENV == 'local' }}
+        run: npm run e2e-webserver:start
+
+      - name: Run Playwright tests on local
+        if: ${{ env.TEST_ENV == 'local' }}
+        run: npm run e2e-test:local
+
+      - name: Run Playwright tests on production
+        if: ${{ env.TEST_ENV == 'prod' }}
+        run: npm run e2e-test:prod
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
