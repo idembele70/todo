@@ -20,47 +20,57 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   constructor(private todoService: TodoService) {
     this.todosSubscription = new Subscription();
     this.todos = []
-    this.disableAddBtn = false;
+    this.disableAddBtn = true;
     this.disableAddInput = false;
   }
 
   ngOnInit(): void {
-      this.todosSubscription = this.todoService.todoSubject.subscribe(
-        {
-          next: (todos: Todo[])=>{
-            this.todos = todos
-          },
-          error: (err) => {
-              console.error(
-                "An error has occured when subscribing to todoSubject",
-                err
-              );
-              
-          },
+    this.todosSubscription = this.todoService.todoSubject.subscribe(
+      {
+        next: (todos: Todo[]) => {
+          this.todos = todos
         },
-      );
-      this.todoService.emitTodos();
+        error: (err) => {
+          console.error(
+            "An error has occured when subscribing to todoSubject",
+            err
+          );
+
+        },
+      },
+    );
+    this.todoService.emitTodos();
   }
 
   ngOnDestroy(): void {
-      this.todosSubscription.unsubscribe()
+    this.todosSubscription.unsubscribe()
   }
 
   public onUpdateNewTodoText() {
-    const todoExist = this.todoService.todoExists(this.newTodoText)
-    if(todoExist) 
-      this.disableAddBtn = true
-    else if( this.disableAddBtn)
-      this.disableAddBtn = false
+    const trimmedText = this.newTodoText.trim();
+    const todoExists = this.todoService.todoExists(trimmedText)
+
+    this.disableAddBtn = trimmedText === '' || todoExists
+  }
+
+  get isAddDisabled(): boolean {
+    return this.disableAddBtn || this.newTodoText.trim() === ''
   }
 
   public onAddTodo() {
-    this.disableAddInput = true
-    this.disableAddBtn = true
-    this.todoService.addTodo(this.newTodoText)
+    if (this.isAddDisabled) return;
+
+    this.setInputState(true)
+
+    this.todoService.addTodo(this.newTodoText.trim())
     this.newTodoText = ''
     this.todoService.emitTodos()
-    this.disableAddInput = false
-    this.disableAddBtn = false
+
+    this.setInputState(false)
+  }
+
+  private setInputState(disabled: boolean): void {
+    this.disableAddInput = disabled;
+    this.disableAddBtn = disabled;
   }
 }
