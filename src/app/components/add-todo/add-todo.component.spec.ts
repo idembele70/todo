@@ -89,7 +89,7 @@ describe('AddTodoComponent', () => {
     expect(component.disableAddBtn).toBeFalse();
   });
 
-  it('should disable add if todo text is valid but and todo exist', () => {
+  it('should disable add if todo text is valid but already exists', () => {
     const validTodoText = 'valid todo text';
     component.newTodoText = validTodoText;
 
