@@ -2,7 +2,6 @@
   <input class="form-check-input me-3 mt-0" type="checkbox" [checked]="todo.done" [id]="'complete-todo'+ todo.id"
     (click)="onComplete()" [disabled]="disableCheckbox">
   <label class="form-check-label flex-fill" [ngClass]="{'text-decoration-line-through': todo.done}"
-    [for]="'complete-todo' + todo.id">{{todo.content}} -- {{todo.createdAt |
-    date:'mediumTime'}}</label>
+    [for]="'complete-todo' + todo.id">{{todo.content}}</label>
   <button type="button" class="btn-close" [disabled]="disableCloseBtn" (click)="onDelete()"></button>
 </li>
