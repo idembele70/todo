@@ -18,12 +18,11 @@ describe('AddTodoComponent', () => {
   beforeEach(async () => {
     todoSubject = new Subject<Todo[]>();
 
-    todoServiceMock = jasmine.createSpyObj('todoService', ['addTodo', 'emitTodos', 'todoExists'], { todoSubject })
+    todoServiceMock = jasmine.createSpyObj('todoService', ['addTodo', 'emitTodos', 'todoExists'], { todoSubject });
     await TestBed.configureTestingModule({
       imports: [AddTodoComponent],
-      providers: [{ provide: TodoService, useValue: todoServiceMock }]
-    })
-      .compileComponents();
+      providers: [{ provide: TodoService, useValue: todoServiceMock }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddTodoComponent);
     component = fixture.componentInstance;
@@ -61,7 +60,7 @@ describe('AddTodoComponent', () => {
   /* onUpdateNewTodoText() Unit Test */
 
   it('should disable add if trimmed text is empty (only whitespace)', () => {
-    const whiteSpaceText = '   '
+    const whiteSpaceText = '   ';
     component.newTodoText = whiteSpaceText;
 
     const trimmedText = whiteSpaceText.trim();
@@ -70,11 +69,11 @@ describe('AddTodoComponent', () => {
     component.onUpdateNewTodoText();
 
     expect(todoServiceMock.todoExists).toHaveBeenCalledWith(trimmedText);
-    expect(component.disableAddBtn).toBeTrue()
+    expect(component.disableAddBtn).toBeTrue();
   });
 
   it('should enable or disable add depending on todo existence', () => {
-    const todoText = ' Buy car  '
+    const todoText = ' Buy car  ';
 
     component.newTodoText = todoText;
     todoServiceMock.todoExists.and.returnValue(true);
@@ -137,7 +136,7 @@ describe('AddTodoComponent', () => {
     expect(todoServiceMock.emitTodos).toHaveBeenCalled();
     expect(component.disableAddInput).toBeFalse();
     expect(component.disableAddBtn).toBeFalse();
-  })
+  });
 
   it('should do nothing if newTodoText is only whitespace', () => {
     component.newTodoText = '   ';
@@ -172,11 +171,11 @@ describe('AddTodoComponent', () => {
     inputDe.triggerEventHandler('keydown.enter');
     fixture.detectChanges();
 
-    expect(component.onAddTodo).toHaveBeenCalled()
+    expect(component.onAddTodo).toHaveBeenCalled();
   });
 
   it('should ensure onUpdateNewTodoText is triggered on user input', () => {
-    spyOn(component, 'onUpdateNewTodoText')
+    spyOn(component, 'onUpdateNewTodoText');
 
     inputDe.triggerEventHandler('ngModelChange', 'todo text');
     fixture.detectChanges();
@@ -195,7 +194,7 @@ describe('AddTodoComponent', () => {
     fixture.detectChanges();
 
     expect(component.newTodoText).toEqual(todoText);
-  })
+  });
 
   /* Add button Unit Tests */
 
@@ -207,5 +206,5 @@ describe('AddTodoComponent', () => {
     fixture.detectChanges();
 
     expect(component.onAddTodo).toHaveBeenCalled();
-  })
+  });
 });

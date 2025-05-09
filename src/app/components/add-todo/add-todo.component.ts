@@ -9,7 +9,7 @@ import { TodoService } from '../../services/todo/todo.service';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './add-todo.component.html',
-  styleUrl: './add-todo.component.css'
+  styleUrl: './add-todo.component.css',
 })
 export class AddTodoComponent implements OnInit, OnDestroy {
   public newTodoText: string = '';
@@ -19,54 +19,48 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   public disableAddInput: boolean;
   constructor(private todoService: TodoService) {
     this.todosSubscription = new Subscription();
-    this.todos = []
+    this.todos = [];
     this.disableAddBtn = true;
     this.disableAddInput = false;
   }
 
   ngOnInit(): void {
-    this.todosSubscription = this.todoService.todoSubject.subscribe(
-      {
-        next: (todos: Todo[]) => {
-          this.todos = todos
-        },
-        error: (err) => {
-          console.error(
-            "An error has occured when subscribing to todoSubject",
-            err
-          );
-
-        },
+    this.todosSubscription = this.todoService.todoSubject.subscribe({
+      next: (todos: Todo[]) => {
+        this.todos = todos;
       },
-    );
+      error: (err) => {
+        console.error('An error has occured when subscribing to todoSubject', err);
+      },
+    });
     this.todoService.emitTodos();
   }
 
   ngOnDestroy(): void {
-    this.todosSubscription.unsubscribe()
+    this.todosSubscription.unsubscribe();
   }
 
   public onUpdateNewTodoText() {
     const trimmedText = this.newTodoText.trim();
-    const todoExists = this.todoService.todoExists(trimmedText)
+    const todoExists = this.todoService.todoExists(trimmedText);
 
-    this.disableAddBtn = trimmedText === '' || todoExists
+    this.disableAddBtn = trimmedText === '' || todoExists;
   }
 
   get isAddDisabled(): boolean {
-    return this.disableAddBtn || this.newTodoText.trim() === ''
+    return this.disableAddBtn || this.newTodoText.trim() === '';
   }
 
   public onAddTodo() {
     if (this.isAddDisabled) return;
 
-    this.setInputState(true)
+    this.setInputState(true);
 
-    this.todoService.addTodo(this.newTodoText.trim())
-    this.newTodoText = ''
-    this.todoService.emitTodos()
+    this.todoService.addTodo(this.newTodoText.trim());
+    this.newTodoText = '';
+    this.todoService.emitTodos();
 
-    this.setInputState(false)
+    this.setInputState(false);
   }
 
   private setInputState(disabled: boolean): void {

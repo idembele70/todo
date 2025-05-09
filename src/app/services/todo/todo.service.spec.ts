@@ -56,15 +56,15 @@ describe('TodoService', () => {
     expect(todo.done).toBeTrue();
 
     todoService.toggleCompletedTodo(todo.id);
-    expect(todo.done).toBe(false)
-  })
+    expect(todo.done).toBe(false);
+  });
 
   it('should delete one todo', () => {
     const todo: Todo = {
       id: id(),
       content: 'todo to remove',
       createdAt: new Date(),
-      done: false
+      done: false,
     };
     todoService['_todos'] = [todo];
 
@@ -72,5 +72,5 @@ describe('TodoService', () => {
 
     const numberOfTodoRemaining = 0;
     expect(todoService['_todos'].length).toEqual(numberOfTodoRemaining);
-  })
+  });
 });

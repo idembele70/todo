@@ -1,5 +1,5 @@
-import test, { expect } from "@playwright/test";
-import TodoListPage from "../pages/todoList.page";
+import test, { expect } from '@playwright/test';
+import TodoListPage from '../pages/todoList.page';
 
 test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
   const NO_TODOS = 0;
@@ -7,10 +7,10 @@ test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('');
-  })
+  });
 
   test('should allow the user to add a new todo', async ({ page }) => {
-    const todoListPage = new TodoListPage(page)
+    const todoListPage = new TodoListPage(page);
     const todoText = 'Add Todo by clicking';
 
     await todoListPage.fillInput(todoText);
@@ -30,21 +30,20 @@ test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
   });
 
   test('should not allow adding a todo if input is whitespace only', async ({ page }) => {
-    const todoListPage = new TodoListPage(page)
+    const todoListPage = new TodoListPage(page);
     const todoText = '   ';
 
     await todoListPage.fillInput(todoText);
 
     await todoListPage.assertAddButtonIsDisabled();
 
-
-    await todoListPage.assertTodoCount(NO_TODOS)
+    await todoListPage.assertTodoCount(NO_TODOS);
   });
 
   test('should not allow adding a duplicate todo', async ({ page }) => {
     const todoListPage = new TodoListPage(page);
     const todoText = 'No duplicate todo text';
-    const expectedTodoCount = 1
+    const expectedTodoCount = 1;
 
     await todoListPage.fillInput(todoText);
     await todoListPage.clickAddButton();

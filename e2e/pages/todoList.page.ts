@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from "@playwright/test";
+import { expect, Locator, Page } from '@playwright/test';
 
 export default class TodoListPage {
   private readonly page: Page;
@@ -12,7 +12,7 @@ export default class TodoListPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.urlPattern = /.*#\/(all|completed|active)/
+    this.urlPattern = /.*#\/(all|completed|active)/;
 
     this.inputField = this.page.locator('input[placeholder="What needs to be done?"]');
     this.addButton = this.page.getByRole('button', { name: 'Add', exact: true });
@@ -23,7 +23,7 @@ export default class TodoListPage {
 
   /**
    * Fills the input field with the provided text.
-   * 
+   *
    * @param {string} text - The text to type into the input field.
    */
   public async fillInput(text: string) {
@@ -34,7 +34,7 @@ export default class TodoListPage {
    * Asserts that the input field is empty.
    */
   public async assertEmptyInputValue() {
-    const expectedEmptyValue = ''
+    const expectedEmptyValue = '';
     await expect(this.inputField).toHaveValue(expectedEmptyValue);
   }
 
@@ -56,15 +56,15 @@ export default class TodoListPage {
    * Press the "Enter" key to submit a new todo item.
    */
   public async pressEnter() {
-    await this.inputField.press('Enter')
+    await this.inputField.press('Enter');
   }
 
   /**
    * Asserts the current number of todos in the list.
-   * 
+   *
    * @param {number} expectedCount - The expected number of todos.
    */
   public async assertTodoCount(expectedCount: number) {
     await expect(this.todoRow).toHaveCount(expectedCount);
   }
-};
+}
