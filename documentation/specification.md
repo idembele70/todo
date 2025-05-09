@@ -38,6 +38,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ All Todos       | /#/all                  | TL-0001     | Display All Todos       | ❌            | ❌             | 🔴        |          |
 |           | └─ Active Todos    | /#/active               | TL-0002     | Display Active Todos    | ❌            | ❌             | 🔴        |          |
 |           | └─ Completed Todos | /#/completed            | TL-0003     | Display Completed Todos | ❌            | ❌             | 🔴        |          |
+|           | └─ Add Todo        | /#/\*                   | TL-0004     | Add new Todo            | ✅            | ✅             | 🔴        |          |
 | 04        | **Todo**           | /todo/:todoId           | T-0001      | Manage a Todo           | ❌            | ❌             | 🟠        |          |
 | 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌            | ❌             | 🟢        |          |
 
@@ -47,6 +48,37 @@ Note: All the paths will follow the **BaseURL**:
 - **Production (GitHub Pages):** https://idembele70.github.io/todo-angular-seventeen/
 
 ## Use cases
+
+### Todo List
+
+#### TL-0004 - Add Todo
+
+##### Quick Description:
+
+- The application should allow the user to add a new todo item using the input field.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/#/`).
+- The input field is empty.
+- The 'Add' button is initially disabled.
+
+##### Nominal Process:
+
+1. Type a valid todo text into the input field.
+2. Click the `Add` button.
+3. Observe that the new todo appears in the list below.
+
+##### Alternative Flows:
+
+- Instead of clicking the `Add` button, the user may press the `Enter` key to add the todo.
+
+#### Postconditions:
+
+- The input field cleared after the todo is added.
+- The `Add` button becomes disabled.
+
+---
 
 ### [Page Name]
 

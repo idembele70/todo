@@ -9,15 +9,14 @@ describe('TodoListComponent', () => {
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
   let todoSubject: Subject<Todo[]>;
-  let todoServiceMock: jasmine.SpyObj<TodoService>
+  let todoServiceMock: jasmine.SpyObj<TodoService>;
   beforeEach(async () => {
     todoSubject = new Subject<Todo[]>();
-    todoServiceMock = jasmine.createSpyObj('todoService', ['emitTodos'], { todoSubject })
+    todoServiceMock = jasmine.createSpyObj('todoService', ['emitTodos'], { todoSubject });
     await TestBed.configureTestingModule({
       imports: [TodoListComponent],
-      providers: [{ provide: TodoService, useValue: todoServiceMock }]
-    })
-      .compileComponents();
+      providers: [{ provide: TodoService, useValue: todoServiceMock }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TodoListComponent);
     component = fixture.componentInstance;
@@ -33,20 +32,20 @@ describe('TodoListComponent', () => {
 
     component.ngOnInit();
 
-    expect(subscribeSpy).toHaveBeenCalled()
-  })
+    expect(subscribeSpy).toHaveBeenCalled();
+  });
 
   it('should call unsubscribe from todoSubscription on detroy', () => {
-    const unsubscribeSpy = spyOn(component.todosSubscription, 'unsubscribe')
+    const unsubscribeSpy = spyOn(component.todosSubscription, 'unsubscribe');
 
     component.ngOnDestroy();
 
     expect(unsubscribeSpy).toHaveBeenCalled();
-  })
+  });
 
   it('should call emitTodos on onDeleteOneTodo()', () => {
     component.onDeleteOneTodo();
 
-    expect(todoServiceMock.emitTodos).toHaveBeenCalled()
-  })
+    expect(todoServiceMock.emitTodos).toHaveBeenCalled();
+  });
 });

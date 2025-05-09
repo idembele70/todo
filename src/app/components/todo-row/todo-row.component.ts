@@ -1,4 +1,4 @@
-import { DatePipe, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo } from '../../models/todo';
 import { TodoService } from '../../services/todo/todo.service';
@@ -6,9 +6,9 @@ import { TodoService } from '../../services/todo/todo.service';
 @Component({
   selector: 'app-todo-row',
   standalone: true,
-  imports: [DatePipe, NgClass],
+  imports: [NgClass],
   templateUrl: './todo-row.component.html',
-  styleUrl: './todo-row.component.css'
+  styleUrl: './todo-row.component.css',
 })
 export class TodoRowComponent {
   @Input() todo: Todo;
@@ -18,10 +18,10 @@ export class TodoRowComponent {
 
   constructor(private todoService: TodoService) {
     this.todo = {
-      id: "id-default-xyz",
+      id: 'id-default-xyz',
       content: 'content-default',
       createdAt: new Date(),
-      done: false
+      done: false,
     };
     this.disableCheckbox = false;
     this.disableCloseBtn = false;

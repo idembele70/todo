@@ -5,9 +5,22 @@
     "markdown": false,
     "scminput": false
   },
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "eslint.format.enable": true,
+  "eslint.validate": ["javascript", "typescript", "html", "css"],
+  "eslint.useFlatConfig": true,
+  "eslint.workingDirectories": ["../src", "../e2e"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll.eslint": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

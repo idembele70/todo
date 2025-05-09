@@ -5,13 +5,11 @@ import { TodoRowComponent } from './todo-row.component';
 describe('TodoRowComponent', () => {
   let component: TodoRowComponent;
   let fixture: ComponentFixture<TodoRowComponent>;
-  let toggleSpy: jasmine.Spy<(id: string) => boolean>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TodoRowComponent]
-    })
-      .compileComponents();
+      imports: [TodoRowComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TodoRowComponent);
     component = fixture.componentInstance;
@@ -32,7 +30,7 @@ describe('TodoRowComponent', () => {
       id: id(),
       content: 'complete todo content',
       createdAt: new Date(),
-      done: false
+      done: false,
     };
 
     component.todo = todo;
@@ -59,7 +57,7 @@ describe('TodoRowComponent', () => {
       id: id(),
       content: 'undone todo content',
       createdAt: new Date(),
-      done: true
+      done: true,
     };
 
     component.todo = todo;
@@ -79,7 +77,7 @@ describe('TodoRowComponent', () => {
     expect(toggleSpy).toHaveBeenCalledWith(component.todo.id);
   }));
 
-  it('should delete one todo', fakeAsync(()=> {
+  it('should delete one todo', fakeAsync(() => {
     const deleteSpy = spyOn(component['todoService'], 'deleteOneTodo').and.callThrough();
     const emitSpy = spyOn(component['deleteTodo'], 'emit');
 
@@ -87,7 +85,7 @@ describe('TodoRowComponent', () => {
       id: '1',
       content: 'todo to delete content',
       createdAt: new Date(),
-      done: false
+      done: false,
     };
     component['todoService']['_todos'] = [todo];
     component.todo = todo;
@@ -104,5 +102,5 @@ describe('TodoRowComponent', () => {
 
     expect(deleteSpy).toHaveBeenCalledWith(todo.id);
     expect(emitSpy).toHaveBeenCalled();
-  }))
+  }));
 });
