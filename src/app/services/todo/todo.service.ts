@@ -9,8 +9,6 @@ export class TodoService {
   public todoSubject = new Subject<Todo[]>();
   private _todos: Todo[] = [];
 
-  constructor() {}
-
   /**
    * Emits a copy of the current todo list trough `todosSubject`.
    *
