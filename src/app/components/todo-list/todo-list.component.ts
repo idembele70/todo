@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
         this.todos = todos;
       },
       error: (err) => {
-        console.error('An error has occured when subscribing to todoSubject', err);
+        console.error('An error has occurred when subscribing to todoSubject', err);
       },
     });
     this.todoService.emitTodos();
