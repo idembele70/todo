@@ -12,7 +12,7 @@ export default class TodoListPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.urlPattern = /.*#\/(all|completed|active)/;
+    this.urlPattern = /.*#\/(all|completed|active)$/;
 
     this.inputField = this.page.locator('input[placeholder="What needs to be done?"]');
     this.addButton = this.page.getByRole('button', { name: 'Add', exact: true });
