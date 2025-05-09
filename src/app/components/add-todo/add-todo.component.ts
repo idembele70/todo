@@ -12,12 +12,13 @@ import { TodoService } from '../../services/todo/todo.service';
   styleUrl: './add-todo.component.css',
 })
 export class AddTodoComponent implements OnInit, OnDestroy {
-  public newTodoText = '';
+  public newTodoText: string;
   public todosSubscription: Subscription;
   public todos: Todo[];
   public disableAddBtn: boolean;
   public disableAddInput: boolean;
   constructor(private todoService: TodoService) {
+    this.newTodoText = '';
     this.todosSubscription = new Subscription();
     this.todos = [];
     this.disableAddBtn = true;
