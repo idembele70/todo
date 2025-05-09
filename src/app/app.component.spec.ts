@@ -15,8 +15,8 @@ describe('AppComponent', () => {
   });
 
   xit(`should have the 'todo' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+    // const fixture = TestBed.createComponent(AppComponent);
+    // const app = fixture.componentInstance;
     // expect(app.title).toEqual('todo');
   });
 
