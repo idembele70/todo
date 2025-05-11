@@ -94,7 +94,7 @@ Note: All the paths will follow the **BaseURL**:
 3. Type the new content into the editable field.
 4. The user confirms by either:
    - Pressing the `Enter` key, or
-   - Cliking outside the input field (blur event).
+   - Clicking outside the input field (blur event).
 5. The updated content is saved, and the todo exits edit mode.
 
 ##### Alternative Flows:
