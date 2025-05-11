@@ -2,7 +2,7 @@ import { AsyncPipe, NgForOf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { Todo } from '../../models/todo.model.';
+import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
 import { TodoRowComponent } from '../todo-row/todo-row.component';
 import { Path } from '../../models/path.type';

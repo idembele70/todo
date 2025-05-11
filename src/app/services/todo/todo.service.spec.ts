@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Todo } from '../../models/todo.model.';
+import { Todo } from '../../models/todo.model';
 import { TodoService } from './todo.service';
 import { v1 as id } from 'uuid';
 

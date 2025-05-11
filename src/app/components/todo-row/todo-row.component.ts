@@ -6,13 +6,12 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Tooltip } from 'bootstrap';
-import { Todo } from '../../models/todo.model.';
+import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { v1 as id } from 'uuid';
-import { Todo } from '../../models/todo.model.';
+import { Todo } from '../../models/todo.model';
 import { Path } from '../../models/path.type';
 @Injectable({
   providedIn: 'root',
