@@ -1,13 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { v1 as id } from 'uuid';
-import { Todo } from '../../models/todo';
+import { Todo } from '../../models/todo.model.';
+import { Path } from '../../models/path.type';
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  public todoSubject = new Subject<Todo[]>();
   private _todos: Todo[] = [];
+
+  private pathSubject = new BehaviorSubject<Path>('all');
+  public todoSubject = new BehaviorSubject<Todo[]>(this._todos);
+
+  public readonly filteredTodos$: Observable<Todo[]> = combineLatest<[Path, Todo[]]>([
+    this.pathSubject,
+    this.todoSubject,
+  ]).pipe(
+    map(([path, todos]) => {
+      switch (path) {
+        case 'active':
+          return todos.filter((todo) => todo.done === false);
+        case 'completed':
+          return todos.filter((todo) => todo.done === true);
+        default:
+          return todos;
+      }
+    }),
+  );
 
   /**
    * Emits a copy of the current todo list trough `todosSubject`.
@@ -32,6 +51,7 @@ export class TodoService {
       createdAt: new Date(),
       done: false,
     });
+    this.emitTodos();
   }
 
   /**
@@ -50,12 +70,12 @@ export class TodoService {
    *
    * @param {string} id - ID of the todo to toggle.
    *
-   * @returns {boolean} The new `done` state
+   * @returns {void} No return value; performs toggle todo completion.
    */
-  public toggleCompletedTodo(id: string): boolean {
+  public toggleCompletedTodo(id: string): void {
     const todo = this._todos.find((todo) => todo.id === id)!;
     todo.done = !todo.done;
-    return todo.done;
+    this.emitTodos();
   }
 
   /**
@@ -68,5 +88,31 @@ export class TodoService {
   public deleteOneTodo(id: string): void {
     const index = this._todos.findIndex((todo) => todo.id === id);
     this._todos.splice(index, 1);
+    this.emitTodos();
+  }
+
+  /**
+   * Updates the content of a specific todo item by its ID.
+   *
+   * @param {string} id - The unique identifier of the todo to be updated.
+   * @param {string} content - The new content to assign to the todo.
+   *
+   * @returns {void} No return value; performs a todo content update and emits the change.
+   */
+  public editContent(id: string, content: string): void {
+    const todo = this._todos.find((todo) => todo.id === id)!;
+    todo.content = content;
+    this.emitTodos();
+  }
+
+  /**
+   * Update the current path state for todo filtering.
+   *
+   * @param {Path} path - The selected path to apply ('all', 'active' or 'completed').
+   *
+   * @returns {void} No return value; emits the new path to subscribers.
+   */
+  public emitPath(path: Path): void {
+    this.pathSubject.next(path);
   }
 }
