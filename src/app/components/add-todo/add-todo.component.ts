@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Todo } from '../../models/todo';
+import { Todo } from '../../models/todo.model.';
 import { TodoService } from '../../services/todo/todo.service';
 
 @Component({
