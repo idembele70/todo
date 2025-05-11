@@ -1,43 +1,45 @@
-import { NgForOf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Todo } from '../../models/todo';
+import { AsyncPipe, NgForOf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { Todo } from '../../models/todo.model.';
 import { TodoService } from '../../services/todo/todo.service';
 import { TodoRowComponent } from '../todo-row/todo-row.component';
+import { Path } from '../../models/path.type';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [TodoRowComponent, NgForOf],
+  imports: [TodoRowComponent, NgForOf, AsyncPipe],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit, OnDestroy {
-  public todosSubscription: Subscription;
-  public todos: Todo[];
+  public todos$: Observable<Todo[]>;
 
-  constructor(private todoService: TodoService) {
-    this.todosSubscription = new Subscription();
-    this.todos = [];
+  private pathSubscription: Subscription;
+
+  constructor(
+    private todoService: TodoService,
+    private router: ActivatedRoute,
+  ) {
+    this.todos$ = this.todoService.filteredTodos$;
+
+    this.pathSubscription = new Subscription();
   }
-
   ngOnInit(): void {
-    this.todosSubscription = this.todoService.todoSubject.subscribe({
-      next: (todos: Todo[]) => {
-        this.todos = todos;
-      },
-      error: (err) => {
-        console.error('An error has occurred when subscribing to todoSubject', err);
-      },
+    this.pathSubscription = this.router.url.subscribe((segments) => {
+      const currentPath = segments[0]?.path as Path;
+      this.todoService.emitPath(currentPath ?? 'all');
     });
-    this.todoService.emitTodos();
   }
 
   ngOnDestroy(): void {
-    this.todosSubscription.unsubscribe();
+    this.pathSubscription.unsubscribe();
   }
 
   onDeleteOneTodo() {
-    this.todoService.emitTodos();
+    console.log('Just wanted to use @Output :p');
   }
 }
