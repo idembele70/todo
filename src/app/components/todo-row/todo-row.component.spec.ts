@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { v1 as id } from 'uuid';
-import { Todo } from '../../models/todo';
+import { Todo } from '../../models/todo.model.';
 import { TodoRowComponent } from './todo-row.component';
 describe('TodoRowComponent', () => {
   let component: TodoRowComponent;
