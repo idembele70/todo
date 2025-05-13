@@ -30,7 +30,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   @Output() deleteTodo: EventEmitter<unknown>;
 
   isEditing: boolean;
-  private currentContent: string;
+  currentContent: string;
 
   editInputFormControl = new FormControl();
 
@@ -38,7 +38,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   @ViewChild('todoRowRef', { static: false }) todoRowRef?: ElementRef;
 
   private TooltipInstance?: Tooltip;
-  private hasFocusedInput: boolean;
+  hasFocusedInput: boolean;
 
   constructor(private todoService: TodoService) {
     this.todo = {
@@ -68,7 +68,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
     }, 100);
   }
 
-  private performDeletion() {
+  performDeletion() {
     this.todoService.deleteOneTodo(this.todo.id);
     this.deleteTodo.emit();
   }
@@ -117,11 +117,11 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
     this.createTooltip();
   }
 
-  private createTooltip() {
+  createTooltip() {
     if (this.todoRowRef?.nativeElement) this.TooltipInstance = new Tooltip(this.todoRowRef.nativeElement);
   }
 
-  private destroyTooltip() {
+  destroyTooltip() {
     if (this.TooltipInstance) {
       this.TooltipInstance.dispose();
     }
