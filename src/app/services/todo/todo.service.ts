@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { v1 as id } from 'uuid';
-import { Todo } from '../../models/todo.model';
 import { Path } from '../../models/path.type';
+import { Todo } from '../../models/todo.model';
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  private _todos: Todo[] = [];
+  protected _todos: Todo[] = [];
 
   private pathSubject = new BehaviorSubject<Path>('all');
   public todoSubject = new BehaviorSubject<Todo[]>(this._todos);
