@@ -37,7 +37,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   @ViewChild('editInputRef') inputRef?: ElementRef;
   @ViewChild('todoRowRef', { static: false }) todoRowRef?: ElementRef;
 
-  private TooltipInstance?: Tooltip;
+  tooltipInstance?: Tooltip;
   hasFocusedInput: boolean;
 
   constructor(private todoService: TodoService) {
@@ -91,6 +91,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
     const content = this.todo.content;
     this.currentContent = content;
     this.editInputFormControl.setValue(content);
+
     this.destroyTooltip();
   }
 
@@ -118,12 +119,12 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   }
 
   createTooltip() {
-    if (this.todoRowRef?.nativeElement) this.TooltipInstance = new Tooltip(this.todoRowRef.nativeElement);
+    if (this.todoRowRef?.nativeElement) this.tooltipInstance = new Tooltip(this.todoRowRef.nativeElement);
   }
 
   destroyTooltip() {
-    if (this.TooltipInstance) {
-      this.TooltipInstance.dispose();
+    if (this.tooltipInstance) {
+      this.tooltipInstance.dispose();
     }
   }
 }
