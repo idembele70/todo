@@ -7,10 +7,10 @@ import { Todo } from '../../models/todo.model';
   providedIn: 'root',
 })
 export class TodoService {
-  protected _todos: Todo[] = [];
+  private _todos: Todo[] = [];
 
   private pathSubject = new BehaviorSubject<Path>('all');
-  public todoSubject = new BehaviorSubject<Todo[]>(this._todos);
+  public readonly todoSubject = new BehaviorSubject<Todo[]>(this._todos);
 
   public readonly filteredTodos$: Observable<Todo[]> = combineLatest<[Path, Todo[]]>([
     this.pathSubject,
