@@ -99,8 +99,9 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Alternative Flows:
 
-- If the user confirms with and empty input:
-  The todo item is deleted from the list.
+- **Empty Input on Confirm**
+  - If the user confirms with an empty input:
+    - The todo item is deleted from the list.
 
 #### Postconditions:
 
