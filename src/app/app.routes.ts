@@ -3,10 +3,16 @@ import { TodoViewComponent } from './pages/todo-view/todo-view.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  // {
-  //   path: '/',
-  //   redirectTo: 'home/all',
-  // },
+  {
+    path: '',
+    redirectTo: 'home/all',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    redirectTo: 'home/all',
+    pathMatch: 'full',
+  },
   {
     path: 'home',
     children: [
@@ -27,5 +33,9 @@ export const routes: Routes = [
   {
     path: 'todo/:id',
     component: TodoViewComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found',
   },
 ];
