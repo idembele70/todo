@@ -28,11 +28,11 @@ export default defineConfig({
         ['list'],
         [
           '@estruyf/github-actions-reporter',
-          <GitHubActionOptions>{
+          {
             title: 'E2E Test Report',
             useDetails: true,
             showError: true,
-          },
+          } as GitHubActionOptions,
         ],
       ]
     : 'html',
@@ -53,7 +53,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         ...devices['Desktop Firefox'],
         ...devices['Desktop Safari'],
-        baseURL: 'http://127.0.0.1:4200/todo-angular-seventeen/',
+        baseURL: 'http://127.0.0.1:4200/todo-angular-seventeen/home/all',
       },
     },
     {
@@ -62,7 +62,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         ...devices['Desktop Firefox'],
         ...devices['Desktop Safari'],
-        baseURL: 'https://idembele70.github.io/todo-angular-seventeen/',
+        baseURL: 'https://idembele70.github.io/todo-angular-seventeen/home/all',
       },
     },
     // {
