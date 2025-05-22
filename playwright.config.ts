@@ -53,7 +53,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         ...devices['Desktop Firefox'],
         ...devices['Desktop Safari'],
-        baseURL: 'http://127.0.0.1:4200/todo-angular-seventeen/home/all',
+        baseURL: 'http://127.0.0.1:4200/todo-angular-seventeen/',
       },
     },
     {
@@ -62,7 +62,7 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
         ...devices['Desktop Firefox'],
         ...devices['Desktop Safari'],
-        baseURL: 'https://idembele70.github.io/todo-angular-seventeen/home/all',
+        baseURL: 'https://idembele70.github.io/todo-angular-seventeen/',
       },
     },
     // {
