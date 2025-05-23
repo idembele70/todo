@@ -6,15 +6,14 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Tooltip } from 'bootstrap';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-row',
