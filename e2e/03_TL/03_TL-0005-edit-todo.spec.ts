@@ -60,7 +60,7 @@ test.describe('TodoList - Edit Todo', { tag: '@todoListPage' }, () => {
   });
 
   test.describe('Completed Todos page', () => {
-    test.fixme(true, 'no data persistance between navigation; cannot assert todo edit on completed page.');
+    test.fixme(true, 'no data persistence between navigation; cannot assert todo edit on completed page.');
 
     test('should edit todo in completed todos page', async ({ page }) => {
       const todoListPage = new TodoListPage(page);
