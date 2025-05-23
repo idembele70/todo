@@ -6,6 +6,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -13,6 +14,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Tooltip } from 'bootstrap';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-row',
@@ -40,7 +42,14 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   tooltipInstance?: Tooltip;
   hasFocusedInput: boolean;
 
-  constructor(private todoService: TodoService) {
+  clickCount: number;
+  clickTimer!: ReturnType<typeof setTimeout>;
+  readonly DOUBLE_CLICK_DELAY: 250;
+
+  constructor(
+    private todoService: TodoService,
+    private router: Router,
+  ) {
     this.todo = {
       id: 'id-default-xyz',
       content: 'content-default',
@@ -55,6 +64,9 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
     this.currentContent = '';
 
     this.hasFocusedInput = false;
+
+    this.clickCount = 0;
+    this.DOUBLE_CLICK_DELAY = 250; // ms
   }
 
   onComplete() {
@@ -86,6 +98,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   }
 
   onEnterEditMode() {
+    clearTimeout(this.clickTimer);
     this.isEditing = true;
 
     const content = this.todo.content;
@@ -125,6 +138,22 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   destroyTooltip() {
     if (this.tooltipInstance) {
       this.tooltipInstance.dispose();
+    }
+  }
+
+  onClick() {
+    this.clickCount++;
+
+    if (this.clickCount === 1) {
+      this.clickTimer = setTimeout(() => {
+        const todoPagePath = '/todo';
+
+        this.destroyTooltip();
+        this.router.navigate([todoPagePath, this.todo.id]);
+      }, this.DOUBLE_CLICK_DELAY);
+    } else {
+      this.clickCount = 0;
+      this.onEnterEditMode();
     }
   }
 }
