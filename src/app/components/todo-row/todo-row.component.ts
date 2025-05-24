@@ -148,9 +148,11 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
         const todoPagePath = '/todo';
 
         this.destroyTooltip();
+        this.clickCount = 0;
         this.router.navigate([todoPagePath, this.todo.id]);
       }, this.DOUBLE_CLICK_DELAY);
     } else {
+      clearTimeout(this.clickTimer);
       this.clickCount = 0;
       this.onEnterEditMode();
     }

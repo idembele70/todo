@@ -7,7 +7,7 @@
   data-bs-html="true"
   data-bs-title="- One click redirect to the todo page.<br>- Double-click or press 'E' to enter edit content mode."
 >
-  <div [ngClass]="{ 'd-none': isEditing, 'd-flex': !isEditing }" class="d-flex align-items-center position-relative">
+  <div [ngClass]="{ 'd-none': isEditing }" class="d-flex align-items-center position-relative">
     <input
       class="form-check-input me-3 mt-0"
       type="checkbox"
@@ -33,7 +33,7 @@
     <div class="h-100">
       <input
         data-testid="edit-mode-input"
-        class="form-control flex-fill"
+        class="edit-mode-input form-control flex-fill"
         *ngIf="isEditing"
         [formControl]="editInputFormControl"
         #editInputRef
