@@ -99,6 +99,9 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Alternative Flows:
 
+- **Enter Edit Mode via Keyboard**
+  - The user navigates to the label using Tab, then Presses the `E` key to enter edit mode.
+
 - **Empty Input on Confirm**
   - If the user confirms with an empty input:
     - The todo item is deleted from the list.
