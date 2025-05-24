@@ -29,18 +29,19 @@ The app aims to enhance personal productivity and organization through a clean i
 
 ## Use Case Overview
 
-| Serial No | Pages              | Related Path (Page URL) | Unique Code | Functionality Name      | Documentation | Automated Test | Criticity | Comments |
-| --------- | ------------------ | ----------------------- | ----------- | ----------------------- | ------------- | -------------- | --------- | -------- |
-| 01        | **Auth**           | —                       | A-0000      | User Authentication     | ❌            | ❌             | 🟢        |          |
-|           | └─ Register        | /auth/signup            | A-0001      | User Registration       | ❌            | ❌             | 🟢        |          |
-|           | └─ Login           | /auth/login             | A-0002      | User Login              | ❌            | ❌             | 🟢        |          |
-| 03        | **Todo List**      | —                       | TL-0000     | Display Todo List       | ❌            | ❌             | 🔴        |          |
-|           | └─ All Todos       | /#/all                  | TL-0001     | Display All Todos       | ❌            | ❌             | 🔴        |          |
-|           | └─ Active Todos    | /#/active               | TL-0002     | Display Active Todos    | ❌            | ❌             | 🔴        |          |
-|           | └─ Completed Todos | /#/completed            | TL-0003     | Display Completed Todos | ❌            | ❌             | 🔴        |          |
-|           | └─ Add Todo        | /#/\*                   | TL-0004     | Add new Todo            | ✅            | ✅             | 🔴        |          |
-| 04        | **Todo**           | /todo/:todoId           | T-0001      | Manage a Todo           | ❌            | ❌             | 🟠        |          |
-| 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌            | ❌             | 🟢        |          |
+| Serial No | Pages              | Related Path (Page URL) | Unique Code | Functionality Name      | Documentation              | Automated Test                                                                                             | Criticity | Comments |
+| --------- | ------------------ | ----------------------- | ----------- | ----------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- | --------- | -------- |
+| 01        | **Auth**           | —                       | A-0000      | User Authentication     | ❌                         | ❌                                                                                                         | 🟢        |          |
+|           | └─ Register        | /auth/signup            | A-0001      | User Registration       | ❌                         | ❌                                                                                                         | 🟢        |          |
+|           | └─ Login           | /auth/login             | A-0002      | User Login              | ❌                         | ❌                                                                                                         | 🟢        |          |
+| 03        | **Todo List**      | —                       | TL-0000     | Display Todo List       | ❌                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ All Todos       | /home/all               | TL-0001     | Display All Todos       | ❌                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Active Todos    | /home/active            | TL-0002     | Display Active Todos    | ❌                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Completed Todos | /home/completed         | TL-0003     | Display Completed Todos | ❌                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_TL/03_TL-0004-add-todo.spec.ts) | 🔴        |          |
+|           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
+| 04        | **Todo**           | /todo/:todoId           | T-0001      | Manage a Todo           | ❌                         | ❌                                                                                                         | 🟠        |          |
+| 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
 
@@ -59,7 +60,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Preconditions:
 
-- The user is on the Todo List page (`/#/`).
+- The user is on the Todo List page (`/home/(all| active|completed)`).
 - The input field is empty.
 - The 'Add' button is initially disabled.
 
@@ -73,10 +74,46 @@ Note: All the paths will follow the **BaseURL**:
 
 - Instead of clicking the `Add` button, the user may press the `Enter` key to add the todo.
 
+#### TL-0005 - Edit Todo
+
+##### Quick Description:
+
+- The application should allow the user to edit the content of a todo by double-clicking on it.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all| active|completed)`).
+- At least one todo row exists in the list.
+
+##### Nominal Process:
+
+1. Double-click on the content of a todo item.
+2. The todo row switches to edit mode:
+   - The checkbox and delete button are hidden.
+   - An editable text input with the content as default value appears.
+3. Type the new content into the editable field.
+4. The user confirms by either:
+   - Pressing the `Enter` key, or
+   - Clicking outside the input field (blur event).
+5. The updated content is saved, and the todo exits edit mode.
+
+##### Alternative Flows:
+
+- **Enter Edit Mode via Keyboard**
+  - The user navigates to the label using Tab, then Presses the `E` key to enter edit mode.
+
+- **Empty Input on Confirm**
+  - If the user confirms with an empty input:
+    - The todo item is deleted from the list.
+
 #### Postconditions:
 
-- The input field cleared after the todo is added.
-- The `Add` button becomes disabled.
+- If the todo was updated:
+   - The editable field disappears.
+   - The checkbox & delete button become visible again.
+   - The todo displays the updated content.
+- If the todo was deleted:
+   - The item no longer appears in the list.
 
 ---
 

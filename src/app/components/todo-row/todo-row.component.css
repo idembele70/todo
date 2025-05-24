@@ -1,0 +1,16 @@
+.todo-row {
+  height: 42px;
+}
+
+.todo-row .editing {
+  display: none;
+}
+
+.btn-close {
+  right: 10px;
+  display: none;
+}
+
+.todo-row:hover .btn-close {
+  display: block;
+}

@@ -28,11 +28,11 @@ export default defineConfig({
         ['list'],
         [
           '@estruyf/github-actions-reporter',
-          <GitHubActionOptions>{
+          {
             title: 'E2E Test Report',
             useDetails: true,
             showError: true,
-          },
+          } as GitHubActionOptions,
         ],
       ]
     : 'html',

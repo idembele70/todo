@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
-import { Todo } from '../../models/todo';
+import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
 import { AddTodoComponent } from './add-todo.component';
 import { By } from '@angular/platform-browser';
