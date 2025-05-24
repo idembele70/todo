@@ -41,6 +41,15 @@ test.describe('TodoList - Edit Todo', { tag: '@todoListPage' }, () => {
       const expectedCount = 0;
       await todoListPage.assertTodoCount(expectedCount);
     });
+
+    test('should enter edit mode when navigate todo content with Tab & key "E" is pressed', async () => {
+      const todoRow = todoListPage.getTodoRowByContent(TODO_CONTENT);
+
+      await todoListPage.navigateToTodoRowContentWithTab(todoRow);
+      await todoListPage.pressE(todoRow);
+
+      await todoListPage.assertEditModeInputIsVisible();
+    });
   });
 
   test.describe('Active Todos page', () => {

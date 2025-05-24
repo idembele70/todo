@@ -74,6 +74,14 @@ export default class TodoListPage {
   }
 
   /**
+   * Presses the "E" key on the specified locator.
+   * @param {Locator} locator - The element locator to receive the "E" key press.
+   */
+  public async pressE(locator: Locator) {
+    await locator.press('E');
+  }
+
+  /**
    * Asserts the current number of todos in the list.
    *
    * @param {number} expectedCount - The expected number of todos.
@@ -133,6 +141,13 @@ export default class TodoListPage {
    */
   public async assertEditModeInputIsHidden() {
     await expect(this.editModeInput).toBeHidden();
+  }
+
+  /**
+   * Asserts that the edit mode input is visible.
+   */
+  public async assertEditModeInputIsVisible() {
+    await expect(this.editModeInput).toBeVisible();
   }
 
   /**
@@ -211,5 +226,15 @@ export default class TodoListPage {
    */
   public async assertPageURL() {
     await expect(this.page).toHaveURL(this.urlRegExp);
+  }
+
+  /**
+   * Navigate using Tab to the given todo row content wrapper
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+  public async navigateToTodoRowContentWithTab(todoRow: Locator) {
+    const tabKey = 'Tab';
+    await todoRow.press(tabKey);
+    await todoRow.press(tabKey);
   }
 }
