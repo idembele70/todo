@@ -40,7 +40,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Completed Todos | /home/completed         | TL-0003     | Display Completed Todos | ❌                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_TL/03_TL-0004-add-todo.spec.ts) | 🔴        |          |
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
-| 04        | **Todo**           | /todo/:todoId           | T-0001      | Manage a Todo           | ❌                         | ❌                                                                                                         | 🟠        |          |
+| 04        | **Todo**           | /todo/:todoId           | T-0001      | View Todo Details           | ❌                         | ❌                                                                                                         | 🟠        |          |
 | 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
@@ -114,6 +114,39 @@ Note: All the paths will follow the **BaseURL**:
    - The todo displays the updated content.
 - If the todo was deleted:
    - The item no longer appears in the list.
+
+---
+
+### Todo
+
+#### T-0001 - View Todo Details
+
+##### Quick Description:
+
+- The application must allow the user to view detailed information about a specific todo item.
+
+##### Preconditions:
+
+- The user is currently on the Todo List page (`/home/(all| active|completed)`).
+- At least one todo item is present in the list.
+
+##### Nominal Process:
+
+1. The user clicks on the content of a todo.
+2. The application navigates to the corresponding Todo Details page: (`/todo/:id`).
+
+##### Alternative Flows:
+
+- None.
+
+#### Postconditions:
+
+- The following information is displayed on the Todo Details page:
+  - The **content** of the todo.
+  - The **ID** of the todo.
+  - The **status** (e.g., active, completed).
+  - A **checkbox** to toggle completion.
+  - A **delete** button to remove the todo.
 
 ---
 
