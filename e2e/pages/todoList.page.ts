@@ -104,6 +104,18 @@ export default class TodoListPage {
   }
 
   /**
+   * Delete the specified todo row from the list.
+   * @param {Locator} todoRow - The locator of the todo row element to delete.
+   */
+  public async deleteTodo(todoRow: Locator) {
+    const closeButton = todoRow.locator('.btn-close');
+
+    await closeButton.click();
+
+    await todoRow.waitFor({ state: 'hidden' });
+  }
+
+  /**
    * awaits a todo row by its exact text content.
    *
    * @param {string} content - The exact text of the todo item.
@@ -175,7 +187,8 @@ export default class TodoListPage {
    */
   public async editTodoRowContent(todoRow: Locator, content: string) {
     await todoRow.dblclick();
-
+    await this.page.pause();
+    await expect(this.editModeInput).toBeVisible();
     await this.editModeInput.fill(content);
     await this.editModeInput.blur();
 
@@ -236,5 +249,12 @@ export default class TodoListPage {
     const tabKey = 'Tab';
     await todoRow.press(tabKey);
     await todoRow.press(tabKey);
+  }
+
+  /**
+   * Close the current browser page instance.
+   */
+  public async close() {
+    await this.page.close();
   }
 }
