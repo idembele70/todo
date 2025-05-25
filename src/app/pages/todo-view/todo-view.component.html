@@ -1,1 +1,29 @@
-<p>todo-view works!</p>
+<div class="card text-center mt-2">
+  <div class="card-header">
+    {{ todo.id }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      {{ todo.content }}
+    </h5>
+    <div class="input-group mb-3">
+      <input class="form-control" type="text" [(ngModel)]="todo.content" />
+      <button type="button" class="btn btn-success" (click)="onSave()">Save</button>
+    </div>
+    <p class="card-text">This todo is {{ isDone ? 'done' : 'not done' }}</p>
+    <div class="d-flex">
+      <div class="button-wrapper">
+        <button class="btn btn-primary" (click)="onToggleComplete()">{{ completeButtonLabel }}</button>
+      </div>
+      <div class="button-wrapper">
+        <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer text-body-secondary">
+    <div class="d-flex flex-column">
+      <div>Created: {{ todo.createdAt | date: datePipeFormat }}</div>
+      <div>Updated: {{ lastUpdateLabel }}</div>
+    </div>
+  </div>
+</div>
