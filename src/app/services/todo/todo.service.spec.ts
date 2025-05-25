@@ -12,8 +12,6 @@ describe('TodoService', () => {
     TestBed.configureTestingModule({});
     todoService = TestBed.inject(TodoService);
 
-    spyOn(todoService, 'emitTodos').and.callThrough();
-
     todoService.addTodo(MOCK_CONTENTS[0]);
     const completedTodo = todoService.todoSubject.value[0];
     todoService.toggleCompletedTodo(completedTodo.id);
@@ -21,6 +19,9 @@ describe('TodoService', () => {
     todoService.addTodo(MOCK_CONTENTS[1]);
 
     allTodos = todoService.todoSubject.value;
+
+    spyOn(todoService, 'emitTodos').and.callThrough();
+    spyOn(todoService, 'updateTodoTimestamp').and.callThrough();
   });
 
   it('should be created', () => {
@@ -112,16 +113,21 @@ describe('TodoService', () => {
 
   describe('toggleCompletedTodo()', () => {
     it('should toggle done state of a todo', () => {
-      const todo = todoService.todoSubject.value[1];
-      expect(todo.done).toBeFalse();
+      const originalTodo = todoService.todoSubject.value[1];
+      expect(originalTodo.done).toBeFalse();
 
-      todoService.toggleCompletedTodo(todo.id);
-      expect(todo.done).toBeTrue();
+      todoService.toggleCompletedTodo(originalTodo.id);
+      const updatedTodo1 = todoService.todoSubject.value[1];
+      expect(updatedTodo1.done).toBeTrue();
       expect(todoService.emitTodos).toHaveBeenCalled();
 
-      todoService.toggleCompletedTodo(todo.id);
-      expect(todo.done).toBe(false);
+      todoService.toggleCompletedTodo(originalTodo.id);
+      const updatedTodo2 = todoService.todoSubject.value[1];
+      expect(updatedTodo2.done).toBe(false);
       expect(todoService.emitTodos).toHaveBeenCalled();
+
+      const expectedUpdateTodoTimestampCall = 2;
+      expect(todoService.updateTodoTimestamp).toHaveBeenCalledTimes(expectedUpdateTodoTimestampCall);
     });
   });
 
@@ -132,10 +138,10 @@ describe('TodoService', () => {
 
       todoService.deleteOneTodo(todo.id);
 
-      const numberofTodosRemaining = todoService.todoSubject.value.length;
+      const numberOfTodosRemaining = todoService.todoSubject.value.length;
 
       const expectedLength = 1;
-      expect(numberofTodosRemaining).toEqual(expectedLength);
+      expect(numberOfTodosRemaining).toEqual(expectedLength);
       expect(todoService.emitTodos).toHaveBeenCalled();
     });
   });
@@ -149,6 +155,30 @@ describe('TodoService', () => {
 
       expect(todo.content).toEqual(newContent);
       expect(todoService.emitTodos).toHaveBeenCalled();
+      expect(todoService.updateTodoTimestamp).toHaveBeenCalled();
+    });
+  });
+
+  describe('getOneTodo()', () => {
+    it('should retrieve one todo via its ID', (done) => {
+      const expectedTodo = todoService.todoSubject.value[0];
+
+      todoService.getOneTodo(expectedTodo.id).subscribe((todo) => {
+        expect(todo).toEqual(expectedTodo);
+        done();
+      });
+    });
+  });
+
+  describe('updateTodoTimestamp()', () => {
+    it('should update todo timestamp', () => {
+      const originalTodo = todoService.todoSubject.value[0];
+
+      todoService.updateTodoTimestamp(originalTodo.id);
+
+      const updatedTodo = todoService.todoSubject.value[0];
+
+      expect(updatedTodo.updatedAt).not.toBeUndefined();
     });
   });
 });
