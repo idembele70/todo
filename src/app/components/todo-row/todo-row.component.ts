@@ -99,6 +99,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   onEnterEditMode() {
     clearTimeout(this.clickTimer);
     this.isEditing = true;
+    this.clickCount = 0;
 
     const content = this.todo.content;
     this.currentContent = content;
@@ -153,7 +154,6 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
       }, this.DOUBLE_CLICK_DELAY);
     } else {
       clearTimeout(this.clickTimer);
-      this.clickCount = 0;
       this.onEnterEditMode();
     }
   }
