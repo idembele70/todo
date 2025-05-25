@@ -50,6 +50,7 @@ export class TodoService {
       content,
       createdAt: new Date(),
       done: false,
+      updatedAt: undefined,
     });
     this.emitTodos();
   }
@@ -75,6 +76,7 @@ export class TodoService {
   public toggleCompletedTodo(id: string): void {
     const todo = this._todos.find((todo) => todo.id === id)!;
     todo.done = !todo.done;
+    this.updateTodoTimestamp(todo.id);
     this.emitTodos();
   }
 
@@ -102,6 +104,7 @@ export class TodoService {
   public editContent(id: string, content: string): void {
     const todo = this._todos.find((todo) => todo.id === id)!;
     todo.content = content;
+    this.updateTodoTimestamp(todo.id);
     this.emitTodos();
   }
 
@@ -114,5 +117,28 @@ export class TodoService {
    */
   public emitPath(path: Path): void {
     this.pathSubject.next(path);
+  }
+
+  /**
+   * Retrieve a specific todo item by its unique identifier.
+   *
+   * @param {string} id - The ID of the todo item to retrieve.
+   *
+   * @returns {Observable<Todo | undefined>} An observable emitting the matched todo item if found, or `undefined` otherwise.
+   */
+  public getOneTodo(id: string): Observable<Todo | undefined> {
+    return this.todoSubject.pipe(map((todos) => todos.find((todo) => todo.id === id)));
+  }
+
+  /**
+   * Update the `updatedAt` timestamp of a specific todo item by its ID.
+   *
+   * @param {string} id - The ID of the todo item to update.
+   *
+   * @returns {void} No return value; performs the updates todo's `updatedAt` field.
+   */
+  public updateTodoTimestamp(id: string): void {
+    const updatedTodos = this._todos.map((todo) => (todo.id === id ? { ...todo, updatedAt: Date.now() } : todo));
+    this._todos = updatedTodos;
   }
 }
