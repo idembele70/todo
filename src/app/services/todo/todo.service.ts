@@ -77,7 +77,6 @@ export class TodoService {
     const todo = this._todos.find((todo) => todo.id === id)!;
     todo.done = !todo.done;
     this.updateTodoTimestamp(todo.id);
-    this.emitTodos();
   }
 
   /**
@@ -105,7 +104,6 @@ export class TodoService {
     const todo = this._todos.find((todo) => todo.id === id)!;
     todo.content = content;
     this.updateTodoTimestamp(todo.id);
-    this.emitTodos();
   }
 
   /**
@@ -140,5 +138,6 @@ export class TodoService {
   public updateTodoTimestamp(id: string): void {
     const updatedTodos = this._todos.map((todo) => (todo.id === id ? { ...todo, updatedAt: Date.now() } : todo));
     this._todos = updatedTodos;
+    this.emitTodos();
   }
 }
