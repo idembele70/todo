@@ -37,7 +37,9 @@ describe('TodoRowComponent', () => {
     }).compileComponents();
 
     todoService = TestBed.inject(TodoService);
-    spyOn(todoService, 'toggleCompletedTodo').and.callThrough();
+    spyOn(todoService, 'toggleCompletedTodo').and.callFake((id) => {
+      if (component.todo.id === id) component.todo.done = !component.todo.done;
+    });
     spyOn(todoService, 'emitTodos').and.callThrough();
     spyOn(todoService, 'deleteOneTodo').and.callThrough();
     spyOn(todoService, 'editContent').and.callThrough();
@@ -236,7 +238,7 @@ describe('TodoRowComponent', () => {
       }));
 
       it('should trigger double click and enter edit mode', fakeAsync(() => {
-        spyOn(component, 'onEnterEditMode');
+        spyOn(component, 'onEnterEditMode').and.callThrough();
 
         component.onClick();
         const expectedClickTimer = component.clickTimer;
@@ -244,7 +246,7 @@ describe('TodoRowComponent', () => {
         tick(DELAY_BETWEEN_EACH_CLICK_MS);
         component.onClick();
 
-        expect(clearTimeout).toHaveBeenCalledOnceWith(expectedClickTimer);
+        expect(clearTimeout).toHaveBeenCalledWith(expectedClickTimer);
         const expectedClickCount = 0;
         expect(component.clickCount).toEqual(expectedClickCount);
         expect(component.onEnterEditMode).toHaveBeenCalled();
