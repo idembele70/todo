@@ -37,8 +37,9 @@ describe('TodoListComponent', () => {
     component = fixture.componentInstance;
 
     todoService.addTodo(MOCK_CONTENT[0]);
+    const todoToCompleteId = todoService.todoSubject.value[0].id;
+    todoService.toggleCompletedTodo(todoToCompleteId);
     completedTodo = todoService.todoSubject.value[0];
-    todoService.toggleCompletedTodo(completedTodo.id);
 
     todoService.addTodo(MOCK_CONTENT[1]);
     activeTodo = todoService.todoSubject.value[1];
