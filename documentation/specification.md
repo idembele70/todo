@@ -42,6 +42,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
 | 04        | **Todo**           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | ❌                                                                                                         | 🔴        |          |
 | 04        | **Edit Todo Content**           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟠        |          |
+| 04        | **Toggle Todo Completion**           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🟠        |          |
 | 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
@@ -180,6 +181,37 @@ Note: All the paths will follow the **BaseURL**:
 - The following fields of the todo item are updated:
    -  **Content** — the modified text.
    -  **Updated time** — reflects the last modification time.
+
+#### T-0003 - Toggle Todo Completion
+
+##### Quick Description:
+
+- The application should allow the user to toggle completion status of a todo item (mark it as completed or not completed).
+
+##### Preconditions:
+
+- The user is on Todo Detail Page (`/todo/:id`)
+
+##### Nominal Process:
+
+1. If the Todo is **incomplete**:
+   - The users clicks the the button labeled "**Completed**".
+2. If the Todo is **complete**:
+   - The user clicks the button labelled "**Incomplete**".
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- The UI reflects the updated completion status:
+   - If the todo becomes **completed**:
+      - A Paragraph displays the text: "**This todo is done**"
+      - The button label changes to "**Incomplete**"
+   - If the todo becomes **incomplete**:
+      - A paragraph displays the text: "**This done is not done**"
+      - The button label changes to "**Complete**"
 
 ---
 
