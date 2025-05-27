@@ -41,6 +41,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_TL/03_TL-0004-add-todo.spec.ts) | 🔴        |          |
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
 | 04        | **Todo**           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | ❌                                                                                                         | 🟠        |          |
+| 04        | **Edit Todo Content**           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟠        |          |
 | 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
@@ -139,7 +140,7 @@ Note: All the paths will follow the **BaseURL**:
 
 - None.
 
-#### Postconditions:
+##### Postconditions:
 
 - The following information is displayed on the Todo Details page:
   - The **content** of the todo.
@@ -147,6 +148,38 @@ Note: All the paths will follow the **BaseURL**:
   - The **status** (e.g., active, completed).
   - A **checkbox** to toggle completion.
   - A **delete** button to remove the todo.
+
+#### T-0002 - Edit Todo content
+
+##### Quick Description:
+
+- The application should allow the user to edit the content of a todo item.
+
+##### Preconditions:
+
+- The user is on todo detail page (`/todo/:id`)
+
+##### Nominal Process:
+
+1. Modify the content by typing into the input field.
+2. The new content is confirmed by one of the following actions:
+   - Pressing `Enter` key
+   - Clicking outside the input field (blur event).
+   - Clicking the save button.
+3. The updated content is saved.
+
+##### Alternative Flows:
+
+- **Empty Input on Confirm**
+   - If the user confirms with and empty input:
+      - The todo item is deleted.
+      - The user is redirected to the Todo List page (`/home/all`)
+
+##### Postconditions:
+
+- The following fields of the todo item are updated:
+   -  **Content** — the modified text.
+   -  **Updated time** — reflects the last modification time.
 
 ---
 
@@ -172,7 +205,7 @@ Note: All the paths will follow the **BaseURL**:
 
 - [Describe any variations or error handling flows.]
 
-#### Postconditions:
+##### Postconditions:
 
 - [What should be true after the process is completed?]
 
