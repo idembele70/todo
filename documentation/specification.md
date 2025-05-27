@@ -43,6 +43,7 @@ The app aims to enhance personal productivity and organization through a clean i
 | 04        | **Todo**           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | ❌                                                                                                         | 🔴        |          |
 | 04        | **Edit Todo Content**           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟠        |          |
 | 04        | **Toggle Todo Completion**           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🟠        |          |
+| 04        | **Delete Todo**           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004)                         | ❌                                                                                                         | 🟠        |          |
 | 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
@@ -206,12 +207,36 @@ Note: All the paths will follow the **BaseURL**:
 ##### Postconditions:
 
 - The UI reflects the updated completion status:
+   - **Updated time** — reflects the last modification time.
    - If the todo becomes **completed**:
       - A Paragraph displays the text: "**This todo is done**"
       - The button label changes to "**Incomplete**"
    - If the todo becomes **incomplete**:
       - A paragraph displays the text: "**This done is not done**"
       - The button label changes to "**Complete**"
+
+#### T-0004 - Delete Todo
+
+##### Quick Description:
+
+- The application should allow the user to delete a todo item.
+
+##### Preconditions:
+
+- The user is on Todo Detail Page (`/todo/:id`)
+
+##### Nominal Process:
+
+1. The user clicks on the button labeled `Delete`.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- The todo item is deleted.
+- The user is redirected to the Todo List page `/home/all`
 
 ---
 
