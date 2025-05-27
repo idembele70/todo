@@ -144,12 +144,17 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Postconditions:
 
-- The following information is displayed on the Todo Details page:
-  - The **content** of the todo.
-  - The **ID** of the todo.
-  - The **status** (e.g., active, completed).
-  - A **checkbox** to toggle completion.
-  - A **delete** button to remove the todo.
+- The **Todo Details** page displays the following information and controls:
+   - **Todo Information:**
+      - **ID** of the todo.
+      - **Content** of the todo.
+      - **Status** of the todo (e.g., "done", "not done").
+      - **Creation date** of the todo.
+      - **Last update date** of the todo.
+   - **Actions**:
+      - An **input field** pre-filled with the content, followed by a **"Save"** button.
+  - A **button** to toggle completion status.
+  - A **"Delete"** button to remove the todo.
 
 #### T-0002 - Edit Todo content
 
