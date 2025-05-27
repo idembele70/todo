@@ -7,7 +7,7 @@
       {{ todo.content }}
     </h5>
     <div class="input-group mb-3">
-      <input class="form-control" type="text" [(ngModel)]="todo.content" />
+      <input class="form-control" (keyup.enter)="onSave()" (blur)="onSave()" type="text" [(ngModel)]="todo.content" />
       <button type="button" class="btn btn-success" (click)="onSave()">Save</button>
     </div>
     <p class="card-text">This todo is {{ isDone ? 'done' : 'not done' }}</p>
