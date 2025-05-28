@@ -36,6 +36,7 @@ test.describe('View active todos', { tag: '@TodoListPage' }, () => {
   });
 
   test('Should display only uncompleted (active) todos', async () => {
+    await todoListPage.assertPageURL(todoListPage.activeTodosPageURL);
     await todoListPage.assertTodoCount(NUMBER_OF_ACTIVE_TODO);
     await todoListPage.assertTodoRowsText(ACTIVE_TODOS_TEXT);
   });
