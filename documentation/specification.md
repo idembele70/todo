@@ -94,7 +94,6 @@ Note: All the paths will follow the **BaseURL**:
 
 1. Type a valid todo text into the input field.
 2. Click the `Add` button.
-3. Observe that the new todo appears in the list below.
 
 ##### Alternative Flows:
 
@@ -104,6 +103,7 @@ Note: All the paths will follow the **BaseURL**:
 
 - The input field cleared after the todo is added.
 - The `Add` button becomes disabled.
+- The new todo appears in the list below.
 
 #### TL-0005 - Edit Todo
 
