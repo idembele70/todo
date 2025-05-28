@@ -56,6 +56,28 @@ Note: All the paths will follow the **BaseURL**:
 
 ### Todo List
 
+#### TL-0003 - Completed Todos
+
+##### Quick Description:
+
+- The application must allow the user to view only todos that have been marked as completed.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/all`).
+
+##### Nominal Process:
+
+1. The user navigates to the Completed Todos page (`/home/completed`).
+
+##### Alternative Flows:
+
+- None.
+
+#### Postconditions:
+
+-  The **Completed Todos** page displays only todo item that have been marked as completed.
+
 #### TL-0004 - Add Todo
 
 ##### Quick Description:
@@ -77,6 +99,11 @@ Note: All the paths will follow the **BaseURL**:
 ##### Alternative Flows:
 
 - Instead of clicking the `Add` button, the user may press the `Enter` key to add the todo.
+
+##### Postconditions:
+
+- The input field cleared after the todo is added.
+- The `Add` button becomes disabled.
 
 #### TL-0005 - Edit Todo
 
