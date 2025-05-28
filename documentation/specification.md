@@ -56,6 +56,28 @@ Note: All the paths will follow the **BaseURL**:
 
 ### Todo List
 
+#### TL-0002 - Active Todos
+
+##### Quick Description:
+
+- The application must allow the user to view only todos that have not been marked as completed.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/all`).
+
+##### Nominal Process:
+
+1. The user navigates to the Active Todos page (`/home/active`).
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+-  The **Active Todos** page displays only todo items that have not been marked as completed.
+
 #### TL-0003 - Completed Todos
 
 ##### Quick Description:
@@ -76,7 +98,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Postconditions:
 
--  The **Completed Todos** page displays only todo item that have been marked as completed.
+-  The **Completed Todos** page displays only todo items that have been marked as completed.
 
 #### TL-0004 - Add Todo
 
