@@ -34,18 +34,18 @@ The app aims to enhance personal productivity and organization through a clean i
 | 01        | **Auth**           | —                       | A-0000      | User Authentication     | ❌                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Register        | /auth/signup            | A-0001      | User Registration       | ❌                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Login           | /auth/login             | A-0002      | User Login              | ❌                         | ❌                                                                                                         | 🟢        |          |
-| 03        | **Todo List**      | —                       | TL-0000     | Display Todo List       | ❌                         | ❌                                                                                                         | 🔴        |          |
+| 02        | **Todo List**      | —                       | TL-0000     | Display Todo List       | ❌                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ All Todos       | /home/all               | TL-0001     | Display All Todos       | ❌                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ Active Todos    | /home/active            | TL-0002     | Display Active Todos    | ❌                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ Completed Todos | /home/completed         | TL-0003     | Display Completed Todos | ❌                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_TL/03_TL-0004-add-todo.spec.ts) | 🔴        |          |
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
 |           | └─ Toggle Todo completion       | /home/(all \| active \| completed)               | TL-0006     | Toggle Todo Completion             | [✅](#tl-0006---toggle-todo-completion) | ❌                                                                                                         | 🔴        |          |
-| 04        | **Todo**           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | ❌                                                                                                         | 🔴        |          |
-|           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🔴        |          |
-|           | └─ Toggle Todo Completion           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🔴        |          |
-|           | └─ Delete Todo           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004)                         | ❌                                                                                                         | 🔴        |          |
-| 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
+| 03        | **Todo**           | /todo/:todoId           | T-0000      | View Todo Details           | [✅](#t-0000---view-todo-details)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Edit Todo Content           | /todo/:todoId           | T-0001      | Edit Todo Content           | [✅](#t-0001---edit-todo-content)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Toggle Todo Completion           | /todo/:todoId           | T-0002      | Toggle Todo Completion           | [✅](#t-0002---toggle-todo-completion)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Delete Todo           | /todo/:todoId           | T-0003      | Delete Todo           | [✅](#t-0003---delete-todo)                         | ❌                                                                                                         | 🔴        |          |
+| 04        | **Not Found**      | /\*                     | NF-0000     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
 
@@ -152,7 +152,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ### Todo
 
-#### T-0001 - View Todo Details
+#### T-0000 - View Todo Details
 
 ##### Quick Description:
 
@@ -186,7 +186,7 @@ Note: All the paths will follow the **BaseURL**:
   - A **button** to toggle completion status.
   - A **"Delete"** button to remove the todo.
 
-#### T-0002 - Edit Todo content
+#### T-0001 - Edit Todo content
 
 ##### Quick Description:
 
@@ -218,7 +218,7 @@ Note: All the paths will follow the **BaseURL**:
    -  **Content** — the modified text.
    -  **Updated time** — reflects the last modification time.
 
-#### T-0003 - Toggle Todo Completion
+#### T-0002 - Toggle Todo Completion
 
 ##### Quick Description:
 
@@ -250,7 +250,7 @@ Note: All the paths will follow the **BaseURL**:
       - A paragraph displays the text: "**This done is not done**"
       - The button label changes to "**Complete**"
 
-#### T-0004 - Delete Todo
+#### T-0003 - Delete Todo
 
 ##### Quick Description:
 
