@@ -91,6 +91,14 @@ export default class TodoListPage {
   }
 
   /**
+   * Asserts all todos in the displayed list contents.
+   * @param {string[]} texts - An array containing expected texts.
+   */
+  public async assertTodoRowsText(texts: string[]) {
+    await expect(this.todoRows).toHaveText(texts);
+  }
+
+  /**
    * Adds a new todo item and ensures it's visible in the list.
    *
    * @param {string} content - The text content of the todo to be added.
