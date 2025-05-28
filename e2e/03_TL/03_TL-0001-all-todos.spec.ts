@@ -3,21 +3,6 @@ import test, { expect, Page } from '@playwright/test';
 import { APP_ROUTES } from '../../src/app/core/constants/app.routes';
 import TodoListPage from '../pages/todoList.page';
 
-interface GenerateContentOptions {
-  wordCount?: number;
-}
-
-/**
- * Generates an array of fake todo contents.
- *
- * @param count Number of contents to generate.
- * @param options Option config: wordCount per sentence.
- */
-const generateRandomContents = (count: number, options?: GenerateContentOptions): string[] => {
-  const wordCount = options?.wordCount ?? 2;
-  return Array.from({ length: count }).map(() => fakerFR.lorem.sentence(wordCount));
-};
-
 test.describe('View all todos', { tag: '@TodoListPage' }, () => {
   let page: Page;
   let todoListPage: TodoListPage;
