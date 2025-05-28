@@ -109,7 +109,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Preconditions:
 
-- The user is on the Todo List page (`/home/all`).
+- The user is on the Todo List page (`/home/completed`).
 
 ##### Nominal Process:
 
