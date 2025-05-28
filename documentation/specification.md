@@ -40,10 +40,11 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Completed Todos | /home/completed         | TL-0003     | Display Completed Todos | ❌                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_TL/03_TL-0004-add-todo.spec.ts) | 🔴        |          |
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
+|           | └─ Toggle Todo completion       | /home/(all \| active \| completed)               | TL-0006     | Toggle Todo Completion             | [✅](#tl-0006---toggle-todo-completion) | ❌                                                                                                         | 🔴        |          |
 | 04        | **Todo**           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | ❌                                                                                                         | 🔴        |          |
-| 04        | **Edit Todo Content**           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟠        |          |
-| 04        | **Toggle Todo Completion**           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🟠        |          |
-| 04        | **Delete Todo**           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004)                         | ❌                                                                                                         | 🟠        |          |
+|           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Toggle Todo Completion           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Delete Todo           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004)                         | ❌                                                                                                         | 🔴        |          |
 | 05        | **Not Found**      | /\*                     | NF-0001     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
@@ -109,7 +110,7 @@ Note: All the paths will follow the **BaseURL**:
   - If the user confirms with an empty input:
     - The todo item is deleted from the list.
 
-#### Postconditions:
+##### Postconditions:
 
 - If the todo was updated:
    - The editable field disappears.
@@ -117,6 +118,35 @@ Note: All the paths will follow the **BaseURL**:
    - The todo displays the updated content.
 - If the todo was deleted:
    - The item no longer appears in the list.
+
+#### TL-0006 - Toggle Todo Completion
+
+##### Quick Description:
+
+- The application should allow the user to toggle a todo item's completion status.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all| active|completed)`).
+- At least one todo row exists in the list.
+
+##### Nominal Process:
+
+1. The user clicks the checkbox of a todo item.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+   - The UI reflects the updated completion state of the todo item:
+      - **If todo is completed:**
+         - The **checkbox** is checked.
+         - The **content** is displayed with a **strikethrough** effect.
+      - **If the todo is incomplete:**
+         - The **checkbox** is unchecked.
+         - The **content** appears without **strikethrough**.
 
 ---
 
