@@ -2,7 +2,7 @@ import { expect, Locator, Page } from '@playwright/test';
 
 export default class TodoListPage {
   private readonly page: Page;
-  public readonly urlRegExp: RegExp;
+  public readonly URLRegExp: RegExp;
 
   public readonly baseURL: string;
   public readonly allTodosPageURL: string;
@@ -21,7 +21,7 @@ export default class TodoListPage {
     this.page = page;
 
     this.baseURL = 'home/';
-    this.urlRegExp = new RegExp(`.*/${this.baseURL}(all|completed|active)$`);
+    this.URLRegExp = new RegExp(`.*/${this.baseURL}(all|completed|active)$`);
     this.allTodosPageURL = `${this.baseURL}all`;
     this.completedTodosPageURL = `${this.baseURL}completed`;
     this.activeTodosPageURL = `${this.baseURL}active`;
@@ -99,8 +99,8 @@ export default class TodoListPage {
     await this.fillInput(content);
     await this.pressEnter(this.addTodoInputField);
 
-    const createdTodoRows = this.todoRows.getByText(content, { exact: true });
-    await createdTodoRows.waitFor({ state: 'visible' });
+    const createdTodoRow = this.todoRows.getByText(content, { exact: true });
+    await createdTodoRow.waitFor({ state: 'visible' });
   }
 
   /**
@@ -235,10 +235,17 @@ export default class TodoListPage {
   }
 
   /**
-   * Asserts that the current page URL macthes the expected pattern.
+   * Asserts that the current page URL matches a given url or expected pattern.
+   *
+   * @param {string} url - Optional relative path to assert against.
    */
-  public async assertPageURL() {
-    await expect(this.page).toHaveURL(this.urlRegExp);
+  public async assertPageURL(url?: string) {
+    if (!url) {
+      await expect(this.page).toHaveURL(this.URLRegExp);
+      return;
+    }
+
+    await expect(this.page).toHaveURL(url);
   }
 
   /**
@@ -256,5 +263,14 @@ export default class TodoListPage {
    */
   public async close() {
     await this.page.close();
+  }
+
+  /**
+   * Navigate to the detailed page of a specific Todo item.
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+  public async navigateToTodoPage(todoRow: Locator) {
+    const todoContent = todoRow.locator('label');
+    await todoContent.click();
   }
 }
