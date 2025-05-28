@@ -35,9 +35,9 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Register        | /auth/signup            | A-0001      | User Registration       | ❌                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Login           | /auth/login             | A-0002      | User Login              | ❌                         | ❌                                                                                                         | 🟢        |          |
 | 02        | **Todo List**      | —                       | TL-0000     | Display Todo List       | ❌                         | ❌                                                                                                         | 🔴        |          |
-|           | └─ All Todos       | /home/all               | TL-0001     | Display All Todos       | ❌                         | ❌                                                                                                         | 🔴        |          |
-|           | └─ Active Todos    | /home/active            | TL-0002     | Display Active Todos    | ❌                         | ❌                                                                                                         | 🔴        |          |
-|           | └─ Completed Todos | /home/completed         | TL-0003     | Display Completed Todos | ❌                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ All Todos       | /home/all               | TL-0001     | Display All Todos       | [✅](#tl-0001---all-todos)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Active Todos    | /home/active            | TL-0002     | Display Active Todos    | [✅](#tl-0002---active-todos)                         | ❌                                                                                                         | 🔴        |          |
+|           | └─ Completed Todos | /home/completed         | TL-0003     | Display Completed Todos | [✅](#tl-0003---completed-todos)                         | ❌                                                                                                         | 🔴        |          |
 |           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_TL/03_TL-0004-add-todo.spec.ts) | 🔴        |          |
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | ❌                                                                                                         | 🔴        |          |
 |           | └─ Toggle Todo completion       | /home/(all \| active \| completed)               | TL-0006     | Toggle Todo Completion             | [✅](#tl-0006---toggle-todo-completion) | ❌                                                                                                         | 🔴        |          |
@@ -55,6 +55,28 @@ Note: All the paths will follow the **BaseURL**:
 ## Use cases
 
 ### Todo List
+
+#### TL-0001 - All Todos
+
+##### Quick Description:
+
+- The application must allow the user to view to all todos.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/all`).
+
+##### Nominal Process:
+
+- None.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+-  The **All Todos** page displays all todo items.
 
 #### TL-0002 - Active Todos
 
