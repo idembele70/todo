@@ -1,4 +1,4 @@
-import test, { expect, Page } from '@playwright/test';
+import test, { Page } from '@playwright/test';
 import { APP_ROUTES } from '../../src/app/core/constants/app.routes';
 import { generateRandomContents } from '../helpers/todo.helpers';
 import TodoListPage from '../pages/todoList.page';
@@ -30,6 +30,6 @@ test.describe('View all todos', { tag: '@TodoListPage' }, () => {
 
   test(`Should display all todo items on ${APP_ROUTES.HOME_ALL}`, async () => {
     await todoListPage.assertPageURL(todoListPage.allTodosPageURL);
-    await expect(todoListPage.todoRows).toHaveCount(TODO_COUNT);
+    await todoListPage.assertTodoCount(TODO_COUNT);
   });
 });
