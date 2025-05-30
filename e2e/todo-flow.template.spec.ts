@@ -1,5 +1,5 @@
 import test, { Locator } from '@playwright/test';
-import TodoListPage from './pages/todoList.page';
+import TodoListPage from './pages/todo-list.page';
 
 // Note: This test doesn't work !
 test.describe('should describe the whole scenario', { tag: '@yourTag' }, () => {

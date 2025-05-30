@@ -1,6 +1,6 @@
 import test, { Locator, Page } from '@playwright/test';
 import { generateRandomContent } from '@pw-helpers/todo.helpers';
-import TodoListPage from '@pw-pages/todoList.page';
+import TodoListPage from '@pw-pages/todo-list.page';
 
 test.describe("Toggle todo item's completion status", { tag: '@TodoListPage' }, () => {
   let page: Page;

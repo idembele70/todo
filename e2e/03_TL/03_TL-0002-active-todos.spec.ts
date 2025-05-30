@@ -1,7 +1,7 @@
 import { fakerFR } from '@faker-js/faker';
 import test, { Page } from '@playwright/test';
 import { generateRandomContents } from '../helpers/todo.helpers';
-import TodoListPage from '../pages/todoList.page';
+import TodoListPage from '../pages/todo-list.page';
 
 test.describe('View active todos', { tag: '@TodoListPage' }, () => {
   let page: Page;

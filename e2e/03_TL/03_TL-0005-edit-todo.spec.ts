@@ -1,5 +1,5 @@
 import test from '@playwright/test';
-import TodoListPage from '../pages/todoList.page';
+import TodoListPage from '../pages/todo-list.page';
 
 test.describe('TodoList - Edit Todo', { tag: '@TodoListPage' }, () => {
   const TODO_CONTENT = 'Todo content';

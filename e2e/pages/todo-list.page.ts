@@ -312,7 +312,7 @@ export default class TodoListPage {
    * @param {Locator} todoRow - The locator of the todo row.
    */
   public async navigateToTodoPage(todoRow: Locator) {
-    const todoContent = todoRow.locator('label');
+    const todoContent = this.getTodoRowContent(todoRow);
     await todoContent.click();
   }
 

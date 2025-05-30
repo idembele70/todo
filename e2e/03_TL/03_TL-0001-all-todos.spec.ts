@@ -1,7 +1,7 @@
 import test, { Page } from '@playwright/test';
 import { APP_ROUTES } from '../../src/app/core/constants/app.routes';
 import { generateRandomContents } from '../helpers/todo.helpers';
-import TodoListPage from '../pages/todoList.page';
+import TodoListPage from '../pages/todo-list.page';
 
 test.describe('View all todos', { tag: '@TodoListPage' }, () => {
   let page: Page;
