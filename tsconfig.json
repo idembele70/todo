@@ -23,6 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@constants/*": ["src/app/core/constants/*"],
+      "@pw-pages/*": ["e2e/pages/*"]
     },
   },
   "angularCompilerOptions": {
