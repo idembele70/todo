@@ -7,6 +7,7 @@ import { Tooltip } from 'bootstrap';
 import { routes } from '../../app.routes';
 import { TodoService } from '../../services/todo/todo.service';
 import { TodoRowComponent } from './todo-row.component';
+import { BOOTSTRAP_CSS_CLASSES } from '../../core/constants/bootstrap-css-classes.enum';
 
 describe('TodoRowComponent', () => {
   let component: TodoRowComponent;
@@ -23,12 +24,6 @@ describe('TodoRowComponent', () => {
   const DELAY_BETWEEN_EACH_CLICK_MS = 100;
 
   const createFakeLiElement = () => new ElementRef(document.createElement('li'));
-
-  enum BOOTSTRAP_CSS_CLASSES {
-    HIDDEN = 'd-none',
-    EDIT_PADDING = 'py-0',
-    COMPLETED = 'text-decoration-line-through',
-  }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
