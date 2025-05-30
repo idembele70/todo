@@ -1,25 +1,49 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TodoListComponent } from './todo-list.component';
+import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { of } from 'rxjs';
+import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
-import { Subject } from 'rxjs';
-import { Todo } from '../../models/todo';
+import { TodoListComponent } from './todo-list.component';
 
 describe('TodoListComponent', () => {
   let component: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
-  let todoSubject: Subject<Todo[]>;
-  let todoServiceMock: jasmine.SpyObj<TodoService>;
+  let todoService: TodoService;
+  let mockRoute: Partial<ActivatedRoute>;
+  let completedTodo: Todo;
+  let activeTodo: Todo;
+
+  const MOCK_CONTENT = ['First content', 'Second content'];
+
   beforeEach(async () => {
-    todoSubject = new Subject<Todo[]>();
-    todoServiceMock = jasmine.createSpyObj('todoService', ['emitTodos'], { todoSubject });
+    mockRoute = {
+      url: of([{ path: 'active' } as UrlSegment]),
+    };
+
     await TestBed.configureTestingModule({
       imports: [TodoListComponent],
-      providers: [{ provide: TodoService, useValue: todoServiceMock }],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: mockRoute,
+        },
+      ],
     }).compileComponents();
+
+    todoService = TestBed.inject(TodoService);
+    spyOn(todoService, 'emitPath').and.callThrough();
 
     fixture = TestBed.createComponent(TodoListComponent);
     component = fixture.componentInstance;
+
+    todoService.addTodo(MOCK_CONTENT[0]);
+    const todoToCompleteId = todoService.todoSubject.value[0].id;
+    todoService.toggleCompletedTodo(todoToCompleteId);
+    completedTodo = todoService.todoSubject.value[0];
+
+    todoService.addTodo(MOCK_CONTENT[1]);
+    activeTodo = todoService.todoSubject.value[1];
+
     fixture.detectChanges();
   });
 
@@ -27,25 +51,96 @@ describe('TodoListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call subscribe on init', () => {
-    const subscribeSpy = spyOn(todoServiceMock.todoSubject, 'subscribe').and.callThrough();
+  describe('todos$', () => {
+    it('should return all todos for path "all"', (done) => {
+      mockRoute.url = of([{ path: 'all' } as UrlSegment]);
+      component.ngOnInit();
 
-    component.ngOnInit();
+      component.todos$.subscribe((todos) => {
+        const todosLength = todos.length;
+        const expectedLength = MOCK_CONTENT.length;
 
-    expect(subscribeSpy).toHaveBeenCalled();
+        expect(todosLength).toEqual(expectedLength);
+        expect(todos).toEqual([completedTodo, activeTodo]);
+
+        done();
+      });
+    });
+
+    it('should return only active todo for path "active"', (done) => {
+      mockRoute.url = of([{ path: 'active' } as UrlSegment]);
+      component.ngOnInit();
+
+      component.todos$.subscribe((todos) => {
+        const todosLength = todos.length;
+        const expectedLength = 1;
+
+        expect(todosLength).toBe(expectedLength);
+        expect(todos).toContain(activeTodo);
+
+        done();
+      });
+    });
+
+    it('should return completed todo for path "completed"', (done) => {
+      mockRoute.url = of([{ path: 'completed' } as UrlSegment]);
+      component.ngOnInit();
+
+      component.todos$.subscribe((todos) => {
+        const todosLength = todos.length;
+        const expectedLength = 1;
+
+        expect(todosLength).toBe(expectedLength);
+        expect(todos).toContain(completedTodo);
+
+        done();
+      });
+    });
   });
 
-  it('should call unsubscribe from todoSubscription on detroy', () => {
-    const unsubscribeSpy = spyOn(component.todosSubscription, 'unsubscribe');
+  describe('ngOnInit()', () => {
+    it('should call emitPath on init', () => {
+      component.ngOnInit();
+      expect(todoService.emitPath).toHaveBeenCalledWith('active');
+    });
 
-    component.ngOnDestroy();
+    it('should emit "all" when no path is provided', () => {
+      mockRoute.url = of([]);
 
-    expect(unsubscribeSpy).toHaveBeenCalled();
+      component.ngOnInit();
+      expect(todoService.emitPath).toHaveBeenCalledWith('all');
+    });
   });
 
-  it('should call emitTodos on onDeleteOneTodo()', () => {
+  describe('ngOnDestroy()', () => {
+    it('should call unsubscribe from pathSubscription on destroy', () => {
+      spyOn(component.pathSubscription, 'unsubscribe');
+
+      component.ngOnDestroy();
+
+      expect(component.pathSubscription.unsubscribe).toHaveBeenCalled();
+    });
+  });
+
+  describe('app-todo-row', () => {
+    it('should render todos from the observable', () => {
+      mockRoute.url = of([{ path: 'all' } as UrlSegment]);
+
+      component.ngOnInit();
+
+      const expectedLength = MOCK_CONTENT.length;
+
+      fixture.detectChanges();
+
+      const todoElements = fixture.nativeElement.querySelectorAll('li');
+      expect(todoElements.length).toBe(expectedLength);
+      expect(todoElements[0]?.textContent).toContain(completedTodo.content);
+    });
+  });
+
+  xit('should call emitTodos on onDeleteOneTodo()', () => {
     component.onDeleteOneTodo();
 
-    expect(todoServiceMock.emitTodos).toHaveBeenCalled();
+    expect(todoService.emitTodos).toHaveBeenCalled();
   });
 });

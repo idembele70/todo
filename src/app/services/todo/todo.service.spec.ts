@@ -1,76 +1,184 @@
 import { TestBed } from '@angular/core/testing';
-import { Todo } from '../../models/todo';
+import { Todo } from '../../models/todo.model';
 import { TodoService } from './todo.service';
-import { v1 as id } from 'uuid';
 
 describe('TodoService', () => {
   let todoService: TodoService;
+  let allTodos: Todo[];
+
+  const MOCK_CONTENTS = ['content one', 'second content'];
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     todoService = TestBed.inject(TodoService);
+
+    todoService.addTodo(MOCK_CONTENTS[0]);
+    const completedTodo = todoService.todoSubject.value[0];
+    todoService.toggleCompletedTodo(completedTodo.id);
+
+    todoService.addTodo(MOCK_CONTENTS[1]);
+
+    allTodos = todoService.todoSubject.value;
+
+    spyOn(todoService, 'emitTodos').and.callThrough();
+    spyOn(todoService, 'updateTodoTimestamp').and.callThrough();
   });
 
   it('should be created', () => {
     expect(todoService).toBeTruthy();
   });
 
-  it('should add todo', () => {
-    const content = 'Test todo';
-    todoService.addTodo(content);
-    expect(todoService['_todos'].length).toBe(1);
-    expect(todoService['_todos'][0].content).toEqual(content);
-  });
-
-  it('should return true if todo exists', () => {
-    const content = 'Existing todo';
-    todoService.addTodo(content);
-    expect(todoService.todoExists(content)).toBeTrue();
-  });
-
-  it('should return false if todo does not exist', () => {
-    const content = 'unexisting todo';
-    expect(todoService.todoExists(content)).toBeFalse();
-  });
-
-  it('should emit todos', (done) => {
-    const content = 'todo to emit';
-    todoService.addTodo(content);
-    todoService.todoSubject.subscribe((todos: Todo[]) => {
-      const numberOfTodos = 1;
-      expect(todos.length).toBe(numberOfTodos);
-      expect(todos[0].content).toBe(content);
-      done();
+  describe('todoSubject', () => {
+    it('should return all the todos', () => {
+      todoService.todoSubject.subscribe((todos) => {
+        expect(todos).toEqual(allTodos);
+      });
     });
-    todoService.emitTodos();
   });
 
-  it('should toggle done state of a todo', () => {
-    const content = 'toggle todo completion content';
-    todoService.addTodo(content);
+  describe('filteredTodos$', () => {
+    it('should return all todos when path is "all"', () => {
+      const allTodos = todoService.todoSubject.value;
 
-    const todo = todoService['_todos'][0];
-    expect(todo.done).toBeFalse();
+      todoService.filteredTodos$.subscribe((todos) => {
+        expect(todos).toEqual(allTodos);
+      });
+    });
 
-    todoService.toggleCompletedTodo(todo.id);
-    expect(todo.done).toBeTrue();
+    it('should return active todos when path is "active"', () => {
+      todoService.emitPath('active');
 
-    todoService.toggleCompletedTodo(todo.id);
-    expect(todo.done).toBe(false);
+      const allTodos = todoService.todoSubject.value;
+
+      todoService.filteredTodos$.subscribe((todos) => {
+        expect(todos).not.toEqual(allTodos);
+
+        const todosLength = todos.length;
+        const expectedLength = 1;
+        expect(todosLength).toEqual(expectedLength);
+      });
+    });
+
+    it('should return active todos when path is "completed"', () => {
+      todoService.emitPath('completed');
+
+      const completedTodos = todoService.todoSubject.value.filter((todo) => todo.done);
+
+      todoService.filteredTodos$.subscribe((todos) => {
+        expect(todos).toEqual(completedTodos);
+      });
+    });
   });
 
-  it('should delete one todo', () => {
-    const todo: Todo = {
-      id: id(),
-      content: 'todo to remove',
-      createdAt: new Date(),
-      done: false,
-    };
-    todoService['_todos'] = [todo];
+  describe('emitTodos()', () => {
+    it('should emit todos', () => {
+      const content = 'todo to emit';
+      todoService.addTodo(content);
 
-    todoService.deleteOneTodo(todo.id);
+      spyOn(todoService.todoSubject, 'next');
 
-    const numberOfTodoRemaining = 0;
-    expect(todoService['_todos'].length).toEqual(numberOfTodoRemaining);
+      todoService.emitTodos();
+
+      const todos = todoService.todoSubject.value;
+
+      expect(todoService.todoSubject.next).toHaveBeenCalledWith(todos);
+    });
+  });
+
+  describe('addTodo()', () => {
+    it('should add todo', () => {
+      const content = 'Test todo';
+      todoService.addTodo(content);
+
+      const todos = todoService.todoSubject.value;
+      const todosLength = todos.length;
+      const expectedLength = MOCK_CONTENTS.length + 1;
+
+      expect(todosLength).toBe(expectedLength);
+      expect(todoService.emitTodos).toHaveBeenCalled();
+    });
+  });
+
+  describe('todoExists()', () => {
+    it('should return true if todo exists', () => {
+      const content = MOCK_CONTENTS[0];
+      expect(todoService.todoExists(content)).toBeTrue();
+    });
+
+    it('should return false if todo does not exist', () => {
+      const content = 'unexisting todo';
+      expect(todoService.todoExists(content)).toBeFalse();
+    });
+  });
+
+  describe('toggleCompletedTodo()', () => {
+    it('should toggle done state of a todo', () => {
+      const originalTodo = todoService.todoSubject.value[1];
+      expect(originalTodo.done).toBeFalse();
+
+      todoService.toggleCompletedTodo(originalTodo.id);
+      const updatedTodo1 = todoService.todoSubject.value[1];
+      expect(updatedTodo1.done).toBeTrue();
+      expect(todoService.emitTodos).toHaveBeenCalled();
+
+      todoService.toggleCompletedTodo(originalTodo.id);
+      const updatedTodo2 = todoService.todoSubject.value[1];
+      expect(updatedTodo2.done).toBe(false);
+      expect(todoService.emitTodos).toHaveBeenCalled();
+
+      const expectedUpdateTodoTimestampCall = 2;
+      expect(todoService.updateTodoTimestamp).toHaveBeenCalledTimes(expectedUpdateTodoTimestampCall);
+    });
+  });
+
+  describe('deleteOneTodo()', () => {
+    it('should delete one todo', () => {
+      const todos = todoService.todoSubject.value;
+      const todo = todos[1];
+
+      todoService.deleteOneTodo(todo.id);
+
+      const numberOfTodosRemaining = todoService.todoSubject.value.length;
+
+      const expectedLength = 1;
+      expect(numberOfTodosRemaining).toEqual(expectedLength);
+      expect(todoService.emitTodos).toHaveBeenCalled();
+    });
+  });
+
+  describe('editContent()', () => {
+    it('should edit a todo content', () => {
+      const newContent = 'edited content';
+      const todo = todoService.todoSubject.value[0];
+
+      todoService.editContent(todo.id, newContent);
+
+      expect(todo.content).toEqual(newContent);
+      expect(todoService.emitTodos).toHaveBeenCalled();
+      expect(todoService.updateTodoTimestamp).toHaveBeenCalled();
+    });
+  });
+
+  describe('getOneTodo()', () => {
+    it('should retrieve one todo via its ID', (done) => {
+      const expectedTodo = todoService.todoSubject.value[0];
+
+      todoService.getOneTodo(expectedTodo.id).subscribe((todo) => {
+        expect(todo).toEqual(expectedTodo);
+        done();
+      });
+    });
+  });
+
+  describe('updateTodoTimestamp()', () => {
+    it('should update todo timestamp', () => {
+      const originalTodo = todoService.todoSubject.value[0];
+
+      todoService.updateTodoTimestamp(originalTodo.id);
+
+      const updatedTodo = todoService.todoSubject.value[0];
+
+      expect(updatedTodo.updatedAt).not.toBeUndefined();
+    });
   });
 });

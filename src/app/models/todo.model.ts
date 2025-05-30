@@ -3,4 +3,5 @@ export interface Todo {
   content: string;
   createdAt: Date;
   done: boolean;
+  updatedAt?: number;
 }

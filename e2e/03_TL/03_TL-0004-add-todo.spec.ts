@@ -1,12 +1,13 @@
 import test, { expect } from '@playwright/test';
-import TodoListPage from '../pages/todoList.page';
+import TodoListPage from '../pages/todo-list.page';
 
-test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
+test.describe('TodoList - Add Todo', { tag: '@TodoListPage' }, () => {
   const NO_TODOS = 0;
   const EXPECT_INPUT_VALUE_AFTER = '';
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('');
+    const todoListPage = new TodoListPage(page);
+    await todoListPage.goToAllTodosPage();
   });
 
   test('should allow the user to add a new todo', async ({ page }) => {
@@ -16,8 +17,8 @@ test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
     await todoListPage.fillInput(todoText);
     await todoListPage.clickAddButton();
 
-    await expect(todoListPage.todoRow).toContainText(todoText);
-    await expect(todoListPage.inputField).toHaveValue(EXPECT_INPUT_VALUE_AFTER);
+    await expect(todoListPage.todoRows).toContainText(todoText);
+    await expect(todoListPage.addTodoInputField).toHaveValue(EXPECT_INPUT_VALUE_AFTER);
     await todoListPage.assertAddButtonIsDisabled();
   });
 
@@ -59,11 +60,11 @@ test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
     const todoText = 'test todo Text via enter';
 
     await todoListPage.fillInput(todoText);
-    await todoListPage.pressEnter();
+    await todoListPage.pressEnter(todoListPage.addTodoInputField);
 
-    await expect(todoListPage.todoRow).toHaveText(todoText);
+    await expect(todoListPage.todoRows).toHaveText(todoText);
 
-    await expect(todoListPage.inputField).toHaveValue(EXPECT_INPUT_VALUE_AFTER);
+    await expect(todoListPage.addTodoInputField).toHaveValue(EXPECT_INPUT_VALUE_AFTER);
 
     await todoListPage.assertAddButtonIsDisabled();
   });

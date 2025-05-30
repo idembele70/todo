@@ -1,17 +1,45 @@
-<li class="list-group-item d-flex align-items-center">
-  <input
-    class="form-check-input me-3 mt-0"
-    type="checkbox"
-    [checked]="todo.done"
-    [id]="'complete-todo' + todo.id"
-    (click)="onComplete()"
-    [disabled]="disableCheckbox"
-  />
-  <label
-    class="form-check-label flex-fill"
-    [ngClass]="{ 'text-decoration-line-through': todo.done }"
-    [for]="'complete-todo' + todo.id"
-    >{{ todo.content }}</label
-  >
-  <button type="button" class="btn-close" [disabled]="disableCloseBtn" (click)="onDelete()">{{ '' }}</button>
+<li
+  class="todo-row list-group-item"
+  #todoRowRef
+  [ngClass]="{ 'py-0': isEditing }"
+  data-bs-toggle="tooltip"
+  data-bs-placement="top"
+  data-bs-html="true"
+  data-bs-title="- One click redirect to the todo page.<br>- Double-click or press 'E' to enter edit content mode."
+>
+  <div [ngClass]="{ 'd-none': isEditing }" class="d-flex align-items-center position-relative">
+    <input
+      class="form-check-input me-3 mt-0"
+      type="checkbox"
+      [checked]="todo.done"
+      (click)="onComplete()"
+      [disabled]="disableCheckbox"
+    />
+    <label
+      class="form-check-label flex-fill"
+      [ngClass]="{ 'text-decoration-line-through': todo.done }"
+      [for]="'complete-todo' + todo.id"
+      (click)="onClick()"
+      (keyup.e)="onEnterEditMode()"
+      tabindex="0"
+      >{{ todo.content }}</label
+    >
+    <button type="button" class="btn-close position-absolute" [disabled]="disableCloseBtn" (click)="onDelete()">
+      {{ '' }}
+    </button>
+  </div>
+
+  @if (isEditing) {
+    <div class="h-100">
+      <input
+        data-testid="edit-mode-input"
+        class="edit-mode-input form-control flex-fill"
+        *ngIf="isEditing"
+        [formControl]="editInputFormControl"
+        #editInputRef
+        (blur)="onSave()"
+        (keydown.enter)="onSave()"
+      />
+    </div>
+  }
 </li>
