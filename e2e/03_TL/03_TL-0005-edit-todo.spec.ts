@@ -1,7 +1,7 @@
 import test from '@playwright/test';
 import TodoListPage from '../pages/todoList.page';
 
-test.describe('TodoList - Edit Todo', { tag: '@todoListPage' }, () => {
+test.describe('TodoList - Edit Todo', { tag: '@TodoListPage' }, () => {
   const TODO_CONTENT = 'Todo content';
   const EDITED_CONTENT = 'Content edited';
 

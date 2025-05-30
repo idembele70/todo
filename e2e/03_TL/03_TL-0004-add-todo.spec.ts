@@ -1,7 +1,7 @@
 import test, { expect } from '@playwright/test';
 import TodoListPage from '../pages/todoList.page';
 
-test.describe('TodoList - Add Todo', { tag: '@todoListPage' }, () => {
+test.describe('TodoList - Add Todo', { tag: '@TodoListPage' }, () => {
   const NO_TODOS = 0;
   const EXPECT_INPUT_VALUE_AFTER = '';
 
