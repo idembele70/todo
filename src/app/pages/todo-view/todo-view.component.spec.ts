@@ -6,6 +6,7 @@ import { createRandomTodo } from '../../core/utils/todo.factory';
 import { TodoService } from '../../services/todo/todo.service';
 import { TodoViewComponent } from './todo-view.component';
 import { fakerFR } from '@faker-js/faker';
+import { US_DATE_TIME_REGEX } from '@constants/date-format';
 
 describe('TodoViewComponent', () => {
   let component: TodoViewComponent;
@@ -124,7 +125,7 @@ describe('TodoViewComponent', () => {
     it('It should return a valid Date if updatedAt is defined', () => {
       component.todo.updatedAt = Date.now();
 
-      expect(component.lastUpdateLabel).toMatch(/^[A-Z][a-z]{2} \d{1,2}, \d{4}, \d{1,2}:\d{2}:\d{2} [AP]M$/);
+      expect(component.lastUpdateLabel).toMatch(US_DATE_TIME_REGEX);
     });
     it('It should return "Never updated" if updatedAt is undefined', () => {
       component.todo.updatedAt = undefined;
