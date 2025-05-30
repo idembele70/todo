@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { BOOTSTRAP_CSS_CLASSES } from '@constants/bootstrap-css-classes.enum';
 
 export default class TodoListPage {
   private readonly page: Page;
@@ -175,7 +176,7 @@ export default class TodoListPage {
    * @param {Locator} todoRow - The locator of the todo row.
    */
   public async assertTodoRowCheckboxIsVisible(todoRow: Locator) {
-    const checkbox = todoRow.getByRole('checkbox');
+    const checkbox = this.getTodoRowCheckbox(todoRow);
     await expect(checkbox).toBeVisible();
   }
 
@@ -234,12 +235,45 @@ export default class TodoListPage {
   }
 
   /**
-   * Checks the checkbox pf the given todo row.
+   * Checks the checkbox of the given todo row.
    * @param {Locator} todoRow - The locator of the todo row to complete.
    */
   public async completeTodo(todoRow: Locator) {
-    const checkbox = todoRow.getByRole('checkbox');
+    const checkbox = this.getTodoRowCheckbox(todoRow);
     await checkbox.check();
+  }
+
+  /**
+   * Asserts that the given todo row is marked as completed.
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+  public async assertTodoIsCompleted(todoRow: Locator) {
+    const checkbox = this.getTodoRowCheckbox(todoRow);
+    await expect(checkbox).toBeChecked();
+
+    const content = this.getTodoRowContent(todoRow);
+    await expect(content).toContainClass(BOOTSTRAP_CSS_CLASSES.COMPLETED);
+  }
+
+  /**
+   * uncheck the checkbox of given todo row.
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+  public async inCompleteTodo(todoRow: Locator) {
+    const checkbox = this.getTodoRowCheckbox(todoRow);
+    await checkbox.uncheck();
+  }
+
+  /**
+   * Asserts that a given todo row is marked as incomplete.
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+  public async assertTodoIsIncomplete(todoRow: Locator) {
+    const checkbox = this.getTodoRowCheckbox(todoRow);
+    await expect(checkbox).not.toBeChecked();
+
+    const content = this.getTodoRowContent(todoRow);
+    await expect(content).not.toContainClass(BOOTSTRAP_CSS_CLASSES.COMPLETED);
   }
 
   /**
@@ -280,5 +314,26 @@ export default class TodoListPage {
   public async navigateToTodoPage(todoRow: Locator) {
     const todoContent = todoRow.locator('label');
     await todoContent.click();
+  }
+
+  //---------------------------------
+  // DRY FUNCTIONS
+  //---------------------------------
+
+  /**
+   * Returns the checkbox locator inside a given todo row.
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+
+  private getTodoRowCheckbox(todoRow: Locator) {
+    return todoRow.getByRole('checkbox');
+  }
+
+  /**
+   * Returns the locator for the content label within the given todo row.
+   * @param {Locator} todoRow - The locator of the todo row.
+   */
+  private getTodoRowContent(todoRow: Locator) {
+    return todoRow.locator('label');
   }
 }
