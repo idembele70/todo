@@ -50,7 +50,7 @@ The app aims to enhance personal productivity and organization through a clean i
 
 Note: All the paths will follow the **BaseURL**:
 
-- **Local environment:** http://locahost:4200
+- **Local environment:** http://locahost:4200/todo-angular-seventeen/
 - **Production (GitHub Pages):** https://idembele70.github.io/todo-angular-seventeen/
 
 ## Use cases
