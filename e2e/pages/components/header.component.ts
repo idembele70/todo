@@ -3,9 +3,9 @@ import { Locator, Page } from '@playwright/test';
 export default class HeaderComponent {
   constructor(private readonly page: Page) {}
 
-  public readonly allTodosNavButton: Locator = this.page.locator('nav:has-text("All Todos")');
-  public readonly activeTodosNavButton: Locator = this.page.locator('nav:has-text("Active Todos")');
-  public readonly completeTodosNavButton: Locator = this.page.locator('nav:has-text("completed Todos")');
+  public readonly allTodosNavButton: Locator = this.page.getByRole('link', { name: 'All Todos' });
+  public readonly activeTodosNavButton: Locator = this.page.getByRole('link', { name: 'Active Todos' });
+  public readonly completeTodosNavButton: Locator = this.page.getByRole('link', { name: 'Completed Todos' });
 
   /**
    * Navigates to the "All Todos" page by clicking the corresponding navigation button.
