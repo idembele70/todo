@@ -3,11 +3,12 @@ import { DebugElement, ElementRef, EventEmitter } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
+import { routes } from '@app/app.routes';
+import { BOOTSTRAP_CSS_CLASSES } from '@constants/bootstrap-css-classes.enum';
+import { TodoService } from '@services/todo/todo.service';
+import { getAttributesValue } from '@testing/helpers/dom-test.utils';
 import { Tooltip } from 'bootstrap';
-import { routes } from '../../app.routes';
-import { TodoService } from '../../services/todo/todo.service';
 import { TodoRowComponent } from './todo-row.component';
-import { BOOTSTRAP_CSS_CLASSES } from '../../core/constants/bootstrap-css-classes.enum';
 
 describe('TodoRowComponent', () => {
   let component: TodoRowComponent;
@@ -275,12 +276,10 @@ describe('TodoRowComponent', () => {
         expect(todoRowContainerEl).toBeTruthy();
         expect(todoRowContainerEl.classList).not.toContain(BOOTSTRAP_CSS_CLASSES.EDIT_PADDING);
 
-        const getAttributesValue = (type: string) => todoRowContainerEl.attributes.getNamedItem(type)?.value;
-
-        expect(getAttributesValue('data-bs-toggle')).toEqual('tooltip');
-        expect(getAttributesValue('data-bs-placement')).toEqual('top');
-        expect(getAttributesValue('data-bs-html')).toEqual('true');
-        expect(getAttributesValue('data-bs-title')).toEqual(
+        expect(getAttributesValue(todoRowContainerEl, 'data-bs-toggle')).toEqual('tooltip');
+        expect(getAttributesValue(todoRowContainerEl, 'data-bs-placement')).toEqual('top');
+        expect(getAttributesValue(todoRowContainerEl, 'data-bs-html')).toEqual('true');
+        expect(getAttributesValue(todoRowContainerEl, 'data-bs-title')).toEqual(
           "- One click redirect to the todo page.<br>- Double-click or press 'E' to enter edit content mode.",
         );
       });
