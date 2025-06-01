@@ -102,7 +102,7 @@ export default class TodoItemPage {
   public async assertCreationDateContainsTodayWithTime() {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
     };
     const todayDate = new Date().toLocaleDateString('en-US', options);

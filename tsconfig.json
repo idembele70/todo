@@ -22,9 +22,12 @@
     "lib": ["ES2022", "dom"],
     "baseUrl": ".",
     "paths": {
+      "@app/*": ["src/app/*"],
       "@constants/*": ["src/app/core/constants/*"],
       "@pw-pages/*": ["e2e/pages/*"],
-      "@pw-helpers/*": ["e2e/helpers/*"]
+      "@pw-helpers/*": ["e2e/helpers/*"],
+      "@services/*": ["src/app/services/*"],
+      "@testing/*": ["src/testing/*"],
     }
   },
   "angularCompilerOptions": {

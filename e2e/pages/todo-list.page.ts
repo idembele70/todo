@@ -196,7 +196,6 @@ export default class TodoListPage {
    */
   public async editTodoRowContent(todoRow: Locator, content: string) {
     await todoRow.dblclick();
-    await this.page.pause();
     await expect(this.editModeInput).toBeVisible();
     await this.editModeInput.fill(content);
     await this.editModeInput.blur();
