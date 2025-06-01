@@ -5,7 +5,7 @@ export default class HeaderComponent {
 
   public readonly allTodosNavButton: Locator = this.page.getByRole('link', { name: 'All Todos' });
   public readonly activeTodosNavButton: Locator = this.page.getByRole('link', { name: 'Active Todos' });
-  public readonly completeTodosNavButton: Locator = this.page.getByRole('link', { name: 'Completed Todos' });
+  public readonly completeTodosNavButton: Locator = this.page.getByRole('link', { name: 'Complete Todos' });
 
   /**
    * Navigates to the "All Todos" page by clicking the corresponding navigation button.
