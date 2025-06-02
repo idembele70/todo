@@ -26,6 +26,7 @@
       "@constants/*": ["src/app/core/constants/*"],
       "@pw-pages/*": ["e2e/pages/*"],
       "@pw-helpers/*": ["e2e/helpers/*"],
+      "@pw-fixtures/*": ["e2e/fixtures/*"],
       "@services/*": ["src/app/services/*"],
       "@testing/*": ["src/testing/*"],
     }
