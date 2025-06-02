@@ -315,6 +315,16 @@ export default class TodoListPage {
     await todoContent.click();
   }
 
+  /**
+   * Deletes a todo by content after hovering it.
+   * @param {string} content - The todo content to target.
+   */
+  public async deleteTodoByContent(content: string) {
+    const todoRow = this.getTodoRowByContent(content);
+    await this.hoverTodoRow(todoRow);
+    await this.deleteTodo(todoRow);
+  }
+
   //---------------------------------
   // DRY FUNCTIONS
   //---------------------------------
