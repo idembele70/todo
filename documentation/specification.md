@@ -41,6 +41,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Add Todo        | /home/(all \| active \| completed)               | TL-0004     | Add new Todo            | [✅](#tl-0004---add-todo)  | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0004-add-todo.spec.ts) | 🔴        |          |
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0005-edit-todo.spec.ts)                                                                                                         | 🔴        |          |
 |           | └─ Toggle Todo completion       | /home/(all \| active \| completed)               | TL-0006     | Toggle Todo Completion             | [✅](#tl-0006---toggle-todo-completion) | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0006-toggle-todo-completion.spec.ts)                                                                                                         | 🔴        |          |
+|           | └─ Delete Todo Item       | /home/(all \| active \| completed)               | TL-0007     | Delete Todo Item             | [✅](#tl-0007---delete-todo-item) |   ❌                                                                                                     | 🔴        |          |
 | 03        | **Todo**           | —           | —      | —           | —                         | —                                                                                                         | —        |          |
 |         | └─ Todo Details           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0001-view-todo-details.spec.ts)                                                                                                         | 🟢        |          |
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
@@ -219,6 +220,31 @@ Note: All the paths will follow the **BaseURL**:
       - **If the todo is incomplete:**
          - The **checkbox** is unchecked.
          - The **content** appears without **strikethrough**.
+
+#### TL-0007 - Delete Todo Item
+
+##### Quick Description:
+
+- The application should allow the user to delete a todo item from the list.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all | active | completed)`).
+- At least one todo item is displayed.
+
+##### Nominal Process:
+
+1. The user hovers over the todo item row.
+2. The close button becomes visible.
+3. The user clicks the close button.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- The selected todo item is removed from the list.
 
 ---
 
