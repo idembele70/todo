@@ -126,4 +126,11 @@ export default class TodoItemPage {
     await expect(this.updatedDate).toHaveText(/^Updated: /);
     await expect(this.updatedDate).toHaveText(US_DATE_TIME_REGEX);
   }
+
+  /**
+   * Delete this todo item by clicking the delete button.
+   */
+  public async delete() {
+    await this.deleteButton.click();
+  }
 }

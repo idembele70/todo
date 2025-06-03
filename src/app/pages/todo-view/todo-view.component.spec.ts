@@ -188,5 +188,15 @@ describe('TodoViewComponent', () => {
       expect(mockTodoService.deleteOneTodo).toHaveBeenCalledOnceWith(component.todo.id);
       expect(mockRouter.navigate).toHaveBeenCalledWith([APP_ROUTES.HOME_ALL]);
     });
+
+    it('should delete the todo using delete button', () => {
+      const deleteButtonEl = fixture.nativeElement.querySelector('.btn-danger') as HTMLButtonElement;
+
+      spyOn(component, 'onDelete');
+
+      deleteButtonEl.click();
+
+      expect(component.onDelete).toHaveBeenCalled();
+    });
   });
 });
