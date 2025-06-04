@@ -383,7 +383,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Preconditions:
 
-- The user is navigating through the application or manually entering a URL in the browser's address bar.
+- The user has the application open in the browser.
 
 ##### Nominal Process:
 
