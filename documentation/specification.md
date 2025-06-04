@@ -47,7 +47,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Toggle Todo Completion           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Delete Todo           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004---delete-todo)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0004-delete-todo.spec.ts)                                                      | 🟢        |          |
-| 04        | **Not Found**      | /\*                     | NF-0000     | Not Found View          | [✅](#nf-0000---not-found-view)                         | ❌                                                                                                         | 🟢        |          |
+| 04        | **Not Found**      | /\*                     | NF-0000     | Not Found View          | [✅](#nf-0000---not-found-view)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/04_NF/04_NF-0000-not-found-view.spec.ts)           | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
 
