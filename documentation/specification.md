@@ -42,6 +42,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Edit Todo       | /home/(all \| active \| completed)               | TL-0005     | Edit a Todo             | [✅](#tl-0005---edit-todo) | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0005-edit-todo.spec.ts)                                                                                                         | 🔴        |          |
 |           | └─ Toggle Todo completion       | /home/(all \| active \| completed)               | TL-0006     | Toggle Todo Completion             | [✅](#tl-0006---toggle-todo-completion) | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0006-toggle-todo-completion.spec.ts)                                                                                                         | 🔴        |          |
 |           | └─ Delete Todo Item       | /home/(all \| active \| completed)               | TL-0007     | Delete Todo Item             | [✅](#tl-0007---delete-todo-item) |   [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0007-delete-todo-item.spec.ts)| 🔴        |          |
+|           | └─ Todo Count       | /home/(all \| active \| completed)               | TL-0008     | Todo Count             | [✅](#tl-0008---todo-count) |    ❌ | 🟢        |          |
 | 03        | **Todo**           | —           | —      | —           | —                         | —                                                                                                         | —        |          |
 |         | └─ Todo Details           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0001-view-todo-details.spec.ts)                                                                                                         | 🟢        |          |
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
@@ -245,6 +246,29 @@ Note: All the paths will follow the **BaseURL**:
 ##### Postconditions:
 
 - The selected todo item is removed from the list.
+
+#### TL-0008 - Todo Count
+
+##### Quick Description:
+
+- The application should display the total number of todos currently visible in the list, in the footer.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all | active | completed)`).
+- The todo list is initially empty.
+
+##### Nominal Process:
+
+1. The user creates a new todo item.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- A footer is displayed below the todo list, showing the number of todos (e.g., "1 item left").
 
 ---
 
