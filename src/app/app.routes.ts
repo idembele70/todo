@@ -1,3 +1,4 @@
+import { FourOhFourComponent } from './pages/four-oh-four/four-oh-four.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TodoViewComponent } from './pages/todo-view/todo-view.component';
 import { Routes } from '@angular/router';
@@ -33,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'todo/:id',
     component: TodoViewComponent,
+  },
+  {
+    path: 'not-found',
+    component: FourOhFourComponent,
   },
   {
     path: '**',

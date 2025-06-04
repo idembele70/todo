@@ -47,7 +47,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Toggle Todo Completion           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Delete Todo           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004---delete-todo)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0004-delete-todo.spec.ts)                                                      | 🟢        |          |
-| 04        | **Not Found**      | /\*                     | NF-0000     | Page Not Found          | ❌                         | ❌                                                                                                         | 🟢        |          |
+| 04        | **Not Found**      | /\*                     | NF-0000     | Not Found View          | [✅](#nf-0000---not-found-view)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/04_NF/04_NF-0000-not-found-view.spec.ts)           | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
 
@@ -370,6 +370,33 @@ Note: All the paths will follow the **BaseURL**:
 
 - The todo item is deleted.
 - The user is redirected to the Todo List page `/home/all`
+
+---
+
+### Not Found
+
+#### NF-0000 - Not Found View
+
+##### Quick Description:
+
+- The application should display a Not Found page when the user navigates to an unknown route.
+
+##### Preconditions:
+
+- The user has the application open in the browser.
+
+##### Nominal Process:
+
+1. The user enters a non-existent route in the browser's address bar.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- The user is redirected to the dedicated Not Found page (`/not-found`).
+- The user sees the message: "Page not found".
 
 ---
 
