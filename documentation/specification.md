@@ -268,7 +268,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Postconditions:
 
-- A footer is displayed below the todo list, showing the number of todos (e.g., "1 item left").
+- A footer is displayed below the todo list, showing the number of todos (e.g., "1 item left", "2 items left").
 
 ---
 
