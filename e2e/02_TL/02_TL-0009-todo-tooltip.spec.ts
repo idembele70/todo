@@ -19,7 +19,7 @@ test.describe('tooltip behavior on todo toggle and unhover', { tag: '@TodoListPa
     await expect(todoListPage.tooltip).toHaveCount(0);
   });
 
-  test('hides tooltip after uncompleting a todo and unhovering', async ({ todoListPage, page }) => {
+  test('hides tooltip after uncompleting a todo and unhovering', async ({ todoListPage }) => {
     const todoRow = todoListPage.getTodoRowByContent(TODO_CONTENT);
     await todoListPage.completeTodo(todoRow);
 
