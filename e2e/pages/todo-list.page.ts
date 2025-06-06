@@ -18,6 +18,8 @@ export default class TodoListPage {
 
   public readonly editModeInput: Locator;
 
+  public readonly tooltip: Locator;
+
   constructor(page: Page) {
     this.page = page;
 
@@ -34,6 +36,8 @@ export default class TodoListPage {
     this.todoRows = this.page.locator('li');
 
     this.editModeInput = this.page.getByTestId('edit-mode-input');
+
+    this.tooltip = this.page.locator('.tooltip');
   }
 
   /**
@@ -140,6 +144,13 @@ export default class TodoListPage {
    */
   public async hoverTodoRow(todoRow: Locator) {
     await todoRow.hover();
+  }
+
+  /**
+   * Simulates unhovering by moving the mouse away from the currently hovered element.
+   */
+  public async unHover() {
+    await this.page.mouse.move(0, 0);
   }
 
   /**
