@@ -28,7 +28,7 @@ test.describe("Toggle todo item's completion status", { tag: '@TodoListPage' }, 
   });
 
   test('should uncheck a todo item', async () => {
-    await todoListPage.inCompleteTodo(todoRow);
+    await todoListPage.uncompleteTodo(todoRow);
     await todoListPage.assertTodoIsIncomplete(todoRow);
   });
 });

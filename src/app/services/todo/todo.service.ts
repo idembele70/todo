@@ -136,8 +136,8 @@ export class TodoService {
    * @returns {void} No return value; performs the updates todo's `updatedAt` field.
    */
   public updateTodoTimestamp(id: string): void {
-    const updatedTodos = this._todos.map((todo) => (todo.id === id ? { ...todo, updatedAt: Date.now() } : todo));
-    this._todos = updatedTodos;
+    const todo = this._todos.find((todo) => todo.id === id)!;
+    todo.updatedAt = Date.now();
     this.emitTodos();
   }
 }
