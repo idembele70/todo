@@ -44,6 +44,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Delete Todo Item       | /home/(all \| active \| completed)               | TL-0007     | Delete Todo Item             | [✅](#tl-0007---delete-todo-item) |   [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0007-delete-todo-item.spec.ts)| 🔴        |          |
 |           | └─ Todo Count       | /home/(all \| active \| completed)               | TL-0008     | Todo Count             | [✅](#tl-0008---todo-count) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0008-todo-count.spec.ts) | 🟢        |          |
 |           | └─ Todo Tooltip       | /home/(all \| active \| completed)               | TL-0009     | Todo Tooltip             | [✅](#tl-0009---todo-tooltip) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0009-todo-tooltip.spec.ts) | 🟢        |          |
+|           | └─ Clear Completed Todos       | /home/(all \| active \| completed)               | TL-0010     | Clear Completed Todos             | [✅](#tl-0010---clear-completed-todos) |    ❌ | 🟢        |          |
 | 03        | **Todo**           | —           | —      | —           | —                         | —                                                                                                         | —        |          |
 |         | └─ Todo Details           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0001-view-todo-details.spec.ts)                                                                                                         | 🟢        |          |
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
@@ -295,6 +296,31 @@ Note: All the paths will follow the **BaseURL**:
 ##### Postconditions:
 
 - The tooltip **disappears**.
+
+#### TL-0010 - Clear Completed Todos
+
+##### Quick Description:
+
+- The application should allow the user to remove all completed todos with a single action.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all | active | completed)`).
+- At least one todo item exists in the list.
+- At least one todo has been marked as completed (via the toggle completion checkbox).
+
+##### Nominal Process:
+
+1. The user clicks the "Clear completed" button.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- All the completed todos are removed.
+- The "items left" count is updated accordingly.
 
 ---
 
