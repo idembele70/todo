@@ -24,7 +24,7 @@ test.describe('tooltip behavior on todo toggle and unhover', { tag: '@TodoListPa
     await todoListPage.completeTodo(todoRow);
 
     await todoListPage.hoverTodoRow(todoRow);
-    await todoListPage.inCompleteTodo(todoRow);
+    await todoListPage.uncompleteTodo(todoRow);
     await todoListPage.unHover();
 
     await expect(todoListPage.tooltip).toHaveCount(0);

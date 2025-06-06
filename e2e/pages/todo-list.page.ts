@@ -269,7 +269,7 @@ export default class TodoListPage {
    * uncheck the checkbox of given todo row.
    * @param {Locator} todoRow - The locator of the todo row.
    */
-  public async inCompleteTodo(todoRow: Locator) {
+  public async uncompleteTodo(todoRow: Locator) {
     const checkbox = this.getTodoRowCheckbox(todoRow);
     await checkbox.uncheck();
   }
