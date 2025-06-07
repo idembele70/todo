@@ -93,11 +93,14 @@ describe('FooterComponent', () => {
   });
 
   describe('onDeleteCompleteTodos()', () => {
-    it('should delete completed todos and update todo count', () => {
+    beforeEach(() => {
       mockTodoService.deleteAllCompletedTodos.and.callFake(() => {
         const activeTodos = MOCK_TODOS.filter((t) => !t.done);
         filteredTodos$.next(activeTodos);
       });
+    });
+
+    it('should delete completed todos and update todo count', () => {
       const clearCompletedEl = fixture.nativeElement.querySelector('.btn') as HTMLButtonElement;
 
       clearCompletedEl.click();
@@ -106,6 +109,12 @@ describe('FooterComponent', () => {
       expect(mockTodoService.deleteAllCompletedTodos).toHaveBeenCalled();
       expect(component.itemCount).toEqual(1);
       expect(component.hasCompletedTodo).toBeFalse();
+    });
+    it('should remove complete todos', () => {
+      component.onDeleteCompleteTodos();
+
+      expect(component.hasCompletedTodo).toBeFalse();
+      expect(component.itemCount).toBe(1);
     });
   });
 });
