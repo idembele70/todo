@@ -1,4 +1,5 @@
 import { expect, test } from '@pw-fixtures/todo.fixtures';
+import { getItemCountText } from '@pw-helpers/footer.helper';
 import FooterComponent from '@pw-pages/components/footer.component';
 
 test.describe('remove completed todos with a single click', { tag: '@TodoListPage' }, () => {
@@ -21,7 +22,7 @@ test.describe('remove completed todos with a single click', { tag: '@TodoListPag
 
     await footerComponent.clickClearCompletedButton();
 
-    await expect(footerComponent.todoCount).toHaveText('1 item left');
+    await expect(footerComponent.todoCount).toHaveText(getItemCountText(1));
     await expect(todoRow).toBeHidden();
   });
 
