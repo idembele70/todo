@@ -146,6 +146,16 @@ describe('TodoService', () => {
     });
   });
 
+  describe('deleteAllCompletedTodo()', () => {
+    it('should remove all todos with done = true', () => {
+      todoService.deleteAllCompletedTodos();
+
+      const todoCount = todoService.todoSubject.value.length;
+
+      expect(todoCount).toEqual(1);
+    });
+  });
+
   describe('editContent()', () => {
     it('should edit a todo content', () => {
       const newContent = 'edited content';

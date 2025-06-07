@@ -2,13 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { Todo } from '@app/models/todo.model';
 import { TodoService } from '@app/services/todo/todo.service';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { FooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
   let mockTodoService: jasmine.SpyObj<TodoService>;
+  let filteredTodos$: BehaviorSubject<Todo[]>;
 
   const PATH = 'all';
   const MOCK_TODOS: Todo[] = [
@@ -32,7 +33,11 @@ describe('FooterComponent', () => {
       url: of([{ path: PATH } as UrlSegment]),
     };
 
-    mockTodoService = jasmine.createSpyObj('todoService', ['emitPath'], { filteredTodos$: of(MOCK_TODOS) });
+    filteredTodos$ = new BehaviorSubject(MOCK_TODOS);
+
+    mockTodoService = jasmine.createSpyObj('todoService', ['emitPath', 'deleteAllCompletedTodos'], {
+      filteredTodos$: filteredTodos$.asObservable(),
+    });
 
     await TestBed.configureTestingModule({
       imports: [FooterComponent],
@@ -84,6 +89,32 @@ describe('FooterComponent', () => {
 
     it('should set itemCount to 0 if filteredTodos$ is empty', () => {
       expect(component.itemCount).toBe(0);
+    });
+  });
+
+  describe('onDeleteCompleteTodos()', () => {
+    beforeEach(() => {
+      mockTodoService.deleteAllCompletedTodos.and.callFake(() => {
+        const activeTodos = MOCK_TODOS.filter((t) => !t.done);
+        filteredTodos$.next(activeTodos);
+      });
+    });
+
+    it('should delete completed todos and update todo count', () => {
+      const clearCompletedEl = fixture.nativeElement.querySelector('.btn') as HTMLButtonElement;
+
+      clearCompletedEl.click();
+      fixture.detectChanges();
+
+      expect(mockTodoService.deleteAllCompletedTodos).toHaveBeenCalled();
+      expect(component.itemCount).toEqual(1);
+      expect(component.hasCompletedTodo).toBeFalse();
+    });
+    it('should remove complete todos', () => {
+      component.onDeleteCompleteTodos();
+
+      expect(component.hasCompletedTodo).toBeFalse();
+      expect(component.itemCount).toBe(1);
     });
   });
 });

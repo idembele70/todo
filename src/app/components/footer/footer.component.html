@@ -1,3 +1,6 @@
 @if (itemCount) {
-  <footer class="shadow p-2 text-center">{{ itemCount }} item{{ itemCount !== 1 ? 's' : '' }} left</footer>
+  <footer class="shadow p-2 d-flex justify-content-between align-items-center">
+    <div data-testid="todo-count">{{ itemCount }} item{{ itemCount !== 1 ? 's' : '' }} left</div>
+    <button (click)="onDeleteCompleteTodos()" class="btn btn-danger" *ngIf="hasCompletedTodo">Clear completed</button>
+  </footer>
 }

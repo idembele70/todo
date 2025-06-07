@@ -93,6 +93,15 @@ export class TodoService {
   }
 
   /**
+   * Delete all completed todos.
+   */
+  public deleteAllCompletedTodos() {
+    this._todos = this._todos.filter((todo) => todo.done === false);
+
+    this.emitTodos();
+  }
+
+  /**
    * Updates the content of a specific todo item by its ID.
    *
    * @param {string} id - The unique identifier of the todo to be updated.
