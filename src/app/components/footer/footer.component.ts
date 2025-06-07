@@ -39,4 +39,8 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  public onDeleteCompleteTodos() {
+    this.todoService.deleteAllCompletedTodos();
+  }
 }
