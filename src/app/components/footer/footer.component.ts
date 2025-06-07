@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Path } from '@app/models/path.type';
@@ -7,7 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   providers: [],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
@@ -15,6 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class FooterComponent implements OnInit, OnDestroy {
   itemCount = 0;
   readonly destroy$ = new Subject<void>();
+  hasCompletedTodo = false;
 
   constructor(
     private todoService: TodoService,
@@ -24,6 +26,7 @@ export class FooterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.todoService.filteredTodos$.pipe(takeUntil(this.destroy$)).subscribe((todos) => {
       this.itemCount = todos.length;
+      this.hasCompletedTodo = todos.some((todo) => todo.done);
     });
 
     this.activatedRoute.url.pipe(takeUntil(this.destroy$)).subscribe((segments) => {
