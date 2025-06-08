@@ -5,6 +5,7 @@ import { TodoService } from '../../services/todo/todo.service';
 import { AddTodoComponent } from './add-todo.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { MOCK_TODOS } from '@app/services/todo/todo.service-mock';
 
 describe('AddTodoComponent', () => {
   let component: AddTodoComponent;
@@ -13,12 +14,16 @@ describe('AddTodoComponent', () => {
   let todoServiceMock: jasmine.SpyObj<TodoService>;
 
   let todoSubject: Subject<Todo[]>;
-  let inputDe: DebugElement;
+  let addTodoInputDe: DebugElement;
 
   beforeEach(async () => {
     todoSubject = new Subject<Todo[]>();
 
-    todoServiceMock = jasmine.createSpyObj('todoService', ['addTodo', 'emitTodos', 'todoExists'], { todoSubject });
+    todoServiceMock = jasmine.createSpyObj(
+      'todoService',
+      ['addTodo', 'emitTodos', 'todoExists', 'completeAllActiveTodos'],
+      { todoSubject },
+    );
     await TestBed.configureTestingModule({
       imports: [AddTodoComponent],
       providers: [{ provide: TodoService, useValue: todoServiceMock }],
@@ -30,7 +35,7 @@ describe('AddTodoComponent', () => {
 
     todoServiceMock.emitTodos.calls.reset();
 
-    inputDe = fixture.debugElement.query(By.css('input'));
+    addTodoInputDe = fixture.debugElement.query(By.css('[data-testid="add-todo-input"]'));
   });
 
   it('should create', () => {
@@ -168,7 +173,7 @@ describe('AddTodoComponent', () => {
   it('should call onAddTodo when Enter key is pressed in input', () => {
     spyOn(component, 'onAddTodo');
 
-    inputDe.triggerEventHandler('keydown.enter');
+    addTodoInputDe.triggerEventHandler('keydown.enter');
     fixture.detectChanges();
 
     expect(component.onAddTodo).toHaveBeenCalled();
@@ -177,7 +182,7 @@ describe('AddTodoComponent', () => {
   it('should ensure onUpdateNewTodoText is triggered on user input', () => {
     spyOn(component, 'onUpdateNewTodoText');
 
-    inputDe.triggerEventHandler('ngModelChange', 'todo text');
+    addTodoInputDe.triggerEventHandler('ngModelChange', 'todo text');
     fixture.detectChanges();
 
     expect(component.onUpdateNewTodoText).toHaveBeenCalled();
@@ -186,7 +191,7 @@ describe('AddTodoComponent', () => {
   it('should update newTodoText via ngModel when user types', () => {
     const todoText = 'Buy milk';
 
-    const inputEl = inputDe.nativeElement as HTMLInputElement;
+    const inputEl = addTodoInputDe.nativeElement as HTMLInputElement;
 
     inputEl.value = todoText;
 
@@ -206,5 +211,28 @@ describe('AddTodoComponent', () => {
     fixture.detectChanges();
 
     expect(component.onAddTodo).toHaveBeenCalled();
+  });
+
+  /* Add unit test for mark all active todos as complete */
+  it('should call completeAllActiveTodos', () => {
+    component.onCompleteAllActiveTodos();
+
+    expect(todoServiceMock.completeAllActiveTodos).toHaveBeenCalledTimes(1);
+  });
+
+  describe('isChecked', () => {
+    beforeEach(() => {
+      component.todos = MOCK_TODOS;
+    });
+
+    it('should return true', () => {
+      expect(component.isChecked).toBeTrue();
+    });
+
+    it('should return false', () => {
+      component.hasNoActiveTodos = false;
+
+      expect(component.isChecked).toBeFalse();
+    });
   });
 });

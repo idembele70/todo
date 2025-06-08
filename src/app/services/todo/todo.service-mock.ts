@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 import { v1 as id } from 'uuid';
-import { TodoService } from './todo.service';
+// import { TodoService } from './todo.service';
 import { Todo } from '../../models/todo.model';
 
 export const MOCK_TODOS: Todo[] = [
@@ -18,16 +18,16 @@ export const MOCK_TODOS: Todo[] = [
   },
 ];
 
-@Injectable({
-  providedIn: 'root',
-})
-export class TodoServiceMock extends TodoService {
-  constructor() {
-    super();
-    this._todos = MOCK_TODOS;
-  }
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class TodoServiceMock extends TodoService {
+//   constructor() {
+//     super();
+//     this._todos = MOCK_TODOS;
+//   }
 
-  public getOneTodo(id: string): Todo {
-    return this._todos.find((todo) => todo.id === id)!;
-  }
-}
+//   public getOneTodo(id: string): Todo {
+//     return this._todos.find((todo) => todo.id === id)!;
+//   }
+// }
