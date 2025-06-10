@@ -1,9 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { first, forkJoin, Subscription, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { APP_ROUTES } from '@app/core/constants/app.routes';
+import { Subscription } from 'rxjs';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-add-todo',
@@ -19,8 +21,11 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   public disableAddBtn: boolean;
   public disableAddInput: boolean;
   public hasNoActiveTodos = true;
-  public hasVisibleTodoRow = false;
-  constructor(private todoService: TodoService) {
+
+  constructor(
+    private todoService: TodoService,
+    private router: Router,
+  ) {
     this.newTodoText = '';
     this.todosSubscription = new Subscription();
     this.todos = [];
@@ -31,7 +36,6 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.todosSubscription = this.todoService.todoSubject.subscribe({
       next: (todos) => {
-        console.log('in');
         this.todos = todos;
         this.hasNoActiveTodos = todos.every((t) => t.done);
       },
@@ -74,11 +78,23 @@ export class AddTodoComponent implements OnInit, OnDestroy {
     this.disableAddBtn = disabled;
   }
 
-  public onCompleteAllActiveTodos() {
+  public get isActiveTodosView(): boolean {
+    return this.router.url === APP_ROUTES.HOME_ACTIVE;
+  }
+
+  public onCompleteAllActiveTodos(event: MouseEvent) {
     this.todoService.completeAllActiveTodos();
+
+    if (this.isActiveTodosView && this.todos.length && this.hasNoActiveTodos) event.preventDefault();
   }
 
   public get isChecked(): boolean {
-    return this.hasNoActiveTodos && !!this.todos.length;
+    return !this.isActiveTodosView && this.hasNoActiveTodos && !!this.todos.length;
+  }
+
+  public get isCheckboxDisabled(): boolean {
+    const isCompletedTodosView = this.router.url === APP_ROUTES.HOME_COMPLETED;
+
+    return (!this.isActiveTodosView && this.hasNoActiveTodos) || (isCompletedTodosView && !this.hasNoActiveTodos);
   }
 }

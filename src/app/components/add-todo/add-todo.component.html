@@ -1,10 +1,10 @@
 <h1 class="mx-auto mt-2 mb-1 title">Todos</h1>
 
 <div class="input-group mb-3">
-  <div [ngClass]="{ 'cursor-not-allowed': hasNoActiveTodos }" class="input-group-text">
+  <div [ngClass]="{ 'cursor-not-allowed': isCheckboxDisabled }" class="input-group-text">
     <input
-      [disabled]="hasNoActiveTodos"
-      (click)="onCompleteAllActiveTodos()"
+      [disabled]="isCheckboxDisabled"
+      (click)="onCompleteAllActiveTodos($event)"
       [checked]="isChecked"
       type="checkbox"
       class="form-check-input mt-0"
