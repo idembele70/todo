@@ -22,3 +22,9 @@ export const createRandomTodo = (): Todo => {
 export const createRandomContentTodo = (): string => {
   return fakerFR.lorem.sentence(2);
 };
+
+export const completeAllTodos = (todos: Todo[]): void => {
+  todos.forEach((todo) => {
+    if (!todo.done) todo.done = true;
+  });
+};

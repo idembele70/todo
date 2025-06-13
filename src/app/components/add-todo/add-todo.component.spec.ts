@@ -6,6 +6,9 @@ import { AddTodoComponent } from './add-todo.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { MOCK_TODOS } from '@app/services/todo/todo.service-mock';
+import { Router } from '@angular/router';
+import { APP_ROUTES } from '@app/core/constants/app.routes';
+import { completeAllTodos } from '@app/core/utils/todo.factory';
 
 describe('AddTodoComponent', () => {
   let component: AddTodoComponent;
@@ -15,6 +18,9 @@ describe('AddTodoComponent', () => {
 
   let todoSubject: Subject<Todo[]>;
   let addTodoInputDe: DebugElement;
+  let mockRouter: Partial<{
+    url: string;
+  }>;
 
   beforeEach(async () => {
     todoSubject = new Subject<Todo[]>();
@@ -24,9 +30,18 @@ describe('AddTodoComponent', () => {
       ['addTodo', 'emitTodos', 'todoExists', 'completeAllActiveTodos'],
       { todoSubject },
     );
+    mockRouter = {
+      url: APP_ROUTES.HOME_ALL,
+    };
     await TestBed.configureTestingModule({
       imports: [AddTodoComponent],
-      providers: [{ provide: TodoService, useValue: todoServiceMock }],
+      providers: [
+        { provide: TodoService, useValue: todoServiceMock },
+        {
+          provide: Router,
+          useValue: mockRouter,
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddTodoComponent);
@@ -214,25 +229,73 @@ describe('AddTodoComponent', () => {
   });
 
   /* Add unit test for mark all active todos as complete */
-  it('should call completeAllActiveTodos', () => {
-    component.onCompleteAllActiveTodos();
+  describe('completeAllActiveTodos', () => {
+    let event: MouseEvent;
 
-    expect(todoServiceMock.completeAllActiveTodos).toHaveBeenCalledTimes(1);
+    beforeEach(() => {
+      event = new MouseEvent('click');
+
+      todoServiceMock.todoSubject.next(MOCK_TODOS);
+
+      todoServiceMock.completeAllActiveTodos.and.callFake(() => {
+        completeAllTodos(MOCK_TODOS);
+      });
+    });
+
+    it('should complete active todos', () => {
+      component.onCompleteAllActiveTodos(event);
+
+      expect(todoServiceMock.completeAllActiveTodos).toHaveBeenCalledTimes(1);
+
+      const hasActiveTodos = component.todos.some((t) => t.done === false);
+      expect(hasActiveTodos).toBeFalse();
+    });
+
+    it('should prevent default in active todos view', () => {
+      mockRouter.url = APP_ROUTES.HOME_ACTIVE;
+
+      spyOn(event, 'preventDefault');
+
+      component.onCompleteAllActiveTodos(event);
+
+      expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('isChecked', () => {
-    beforeEach(() => {
+    it('should return true if all todos page, no active todos & at least one todo exists', () => {
+      completeAllTodos(MOCK_TODOS);
       component.todos = MOCK_TODOS;
-    });
+      expect(mockRouter.url).toBe(APP_ROUTES.HOME_ALL);
+      expect(component.hasNoActiveTodos).toBeTrue();
+      expect(!!component.todos.length).toBeGreaterThan(0);
 
-    it('should return true', () => {
       expect(component.isChecked).toBeTrue();
     });
 
-    it('should return false', () => {
-      component.hasNoActiveTodos = false;
+    it('should return false if at least one todo is active', () => {
+      const partialTodos = [...MOCK_TODOS];
+      partialTodos[0].done = false;
+      component.todos = partialTodos;
 
       expect(component.isChecked).toBeFalse();
+    });
+  });
+
+  describe('isCheckboxDisabled', () => {
+    beforeEach(() => {
+      component.todos = MOCK_TODOS;
+    });
+    it('should disabled checkbox if completed todos view & no active todos', () => {
+      completeAllTodos(MOCK_TODOS);
+
+      mockRouter.url = APP_ROUTES.HOME_COMPLETED;
+
+      expect(component.isCheckboxDisabled).toBeTrue();
+    });
+
+    it('should not disabled on all todos page', () => {
+      expect(component.isCheckboxDisabled).toBeTrue();
     });
   });
 });
