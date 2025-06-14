@@ -46,6 +46,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Todo Tooltip       | /home/(all \| active \| completed)               | TL-0009     | Todo Tooltip             | [✅](#tl-0009---todo-tooltip) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0009-todo-tooltip.spec.ts) | 🟢        |          |
 |           | └─ Clear Completed Todos       | /home/(all \| active \| completed)               | TL-0010     | Clear Completed Todos             | [✅](#tl-0010---clear-completed-todos) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0010-clear-completed-todos.spec.ts) | 🟢        |          |
 |           | └─ Completed Active Todos       | /home/(all \| active \| completed)               | TL-0011     | Completed Active Todos             | [✅](#tl-0011---complete-active-todos) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0011-complete-active-todos.spec.ts) | 🟢        |          |
+|           | └─ Incomplete Todos       | /home/(all \| completed)               | TL-0012     | Incomplete Todos             | [✅](#tl-0012---incomplete-todos) |    ❌ | 🟢        |          |
 | 03        | **Todo**           | —           | —      | —           | —                         | —                                                                                                         | —        |          |
 |         | └─ Todo Details           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0001-view-todo-details.spec.ts)                                                                                                         | 🟢        |          |
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
@@ -346,6 +347,30 @@ Note: All the paths will follow the **BaseURL**:
 ##### Postconditions:
 
 - All the active todos are marked as completed.
+
+
+#### TL-0012 - Incomplete Todos
+
+##### Quick Description:
+
+- The application should allow the user to mark all completed todos as incomplete with a single click.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all | completed)`).
+- Todos in the current view are marked as completed.
+
+##### Nominal Process:
+
+1. The user clicks the "Mars all as incomplete todos" button.
+
+##### Alternative Flows:
+
+- If some todos are already incomplete, clicking the button will still mark all todos as incomplete.
+
+##### Postconditions:
+
+- All the todos are now marked as incomplete.
 
 ---
 
