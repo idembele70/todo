@@ -357,7 +357,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Preconditions:
 
-- The user is on the Todo List page (`/home/(all | completed)`).
+- The user is on the Todo List page (`/home/all`).
 - Todos in the current view are marked as completed.
 
 ##### Nominal Process:
