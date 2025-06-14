@@ -149,4 +149,21 @@ export class TodoService {
     todo.updatedAt = Date.now();
     this.emitTodos();
   }
+
+  /**
+   * Marks all active todos as completed.
+   */
+  public completeAllActiveTodos() {
+    let updated = false;
+
+    this._todos.forEach((todo) => {
+      if (!todo.done) {
+        todo.done = true;
+        todo.updatedAt = Date.now();
+        updated = true;
+      }
+    });
+
+    if (updated) this.emitTodos();
+  }
 }

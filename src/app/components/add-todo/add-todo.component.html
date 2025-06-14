@@ -1,12 +1,23 @@
 <h1 class="mx-auto mt-2 mb-1 title">Todos</h1>
 
 <div class="input-group mb-3">
+  <div [ngClass]="{ 'cursor-not-allowed': isCheckboxDisabled }" class="input-group-text">
+    <input
+      [disabled]="isCheckboxDisabled"
+      (click)="onCompleteAllActiveTodos($event)"
+      [checked]="isChecked"
+      type="checkbox"
+      class="form-check-input mt-0"
+      aria-label="marks all active todos as completed"
+    />
+  </div>
   <input
     type="text"
     (keydown.enter)="onAddTodo()"
     [(ngModel)]="newTodoText"
     (ngModelChange)="onUpdateNewTodoText()"
     [disabled]="disableAddInput"
+    data-testid="add-todo-input"
     class="form-control"
     placeholder="What needs to be done?"
     aria-label="what needs to be done?"

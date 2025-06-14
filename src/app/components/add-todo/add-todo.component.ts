@@ -1,5 +1,8 @@
+import { NgClass } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { APP_ROUTES } from '@app/core/constants/app.routes';
 import { Subscription } from 'rxjs';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
@@ -7,7 +10,7 @@ import { TodoService } from '../../services/todo/todo.service';
 @Component({
   selector: 'app-add-todo',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass],
   templateUrl: './add-todo.component.html',
   styleUrl: './add-todo.component.css',
 })
@@ -17,7 +20,12 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   public todos: Todo[];
   public disableAddBtn: boolean;
   public disableAddInput: boolean;
-  constructor(private todoService: TodoService) {
+  public hasNoActiveTodos = true;
+
+  constructor(
+    private todoService: TodoService,
+    private router: Router,
+  ) {
     this.newTodoText = '';
     this.todosSubscription = new Subscription();
     this.todos = [];
@@ -27,8 +35,9 @@ export class AddTodoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.todosSubscription = this.todoService.todoSubject.subscribe({
-      next: (todos: Todo[]) => {
+      next: (todos) => {
         this.todos = todos;
+        this.hasNoActiveTodos = todos.every((t) => t.done);
       },
       error: (err) => {
         console.error('An error has occurred when subscribing to todoSubject', err);
@@ -67,5 +76,25 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   private setInputState(disabled: boolean): void {
     this.disableAddInput = disabled;
     this.disableAddBtn = disabled;
+  }
+
+  public get isActiveTodosView(): boolean {
+    return this.router.url === APP_ROUTES.HOME_ACTIVE;
+  }
+
+  public onCompleteAllActiveTodos(event: MouseEvent) {
+    this.todoService.completeAllActiveTodos();
+
+    if (this.isActiveTodosView && this.todos.length && this.hasNoActiveTodos) event.preventDefault();
+  }
+
+  public get isChecked(): boolean {
+    return !this.isActiveTodosView && this.hasNoActiveTodos && !!this.todos.length;
+  }
+
+  public get isCheckboxDisabled(): boolean {
+    const isCompletedTodosView = this.router.url === APP_ROUTES.HOME_COMPLETED;
+
+    return (!this.isActiveTodosView && this.hasNoActiveTodos) || (isCompletedTodosView && !this.hasNoActiveTodos);
   }
 }

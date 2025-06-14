@@ -5,6 +5,7 @@ import { TodoService } from './todo.service';
 describe('TodoService', () => {
   let todoService: TodoService;
   let allTodos: Todo[];
+  let emitTodosSpy: jasmine.Spy;
 
   const MOCK_CONTENTS = ['content one', 'second content'];
 
@@ -20,7 +21,7 @@ describe('TodoService', () => {
 
     allTodos = todoService.todoSubject.value;
 
-    spyOn(todoService, 'emitTodos').and.callThrough();
+    emitTodosSpy = spyOn(todoService, 'emitTodos').and.callThrough();
     spyOn(todoService, 'updateTodoTimestamp').and.callThrough();
   });
 
@@ -189,6 +190,29 @@ describe('TodoService', () => {
       const updatedTodo = todoService.todoSubject.value[0];
 
       expect(updatedTodo.updatedAt).not.toBeUndefined();
+    });
+  });
+
+  describe('completeAllActiveTodos()', () => {
+    it('should complete all active todos and emit', () => {
+      todoService.completeAllActiveTodos();
+
+      const previouslyActiveTodo = todoService.todoSubject.value[1];
+
+      expect(previouslyActiveTodo.done).toBeTrue();
+      expect(previouslyActiveTodo.updatedAt).toBeDefined();
+      expect(emitTodosSpy).toHaveBeenCalled();
+    });
+
+    it('should not emit todos if all todos are already completed', () => {
+      const uncompletedTodoId = todoService.todoSubject.value[1].id;
+      todoService.toggleCompletedTodo(uncompletedTodoId);
+
+      emitTodosSpy.calls.reset();
+
+      todoService.completeAllActiveTodos();
+
+      expect(emitTodosSpy).not.toHaveBeenCalled();
     });
   });
 });

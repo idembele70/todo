@@ -10,11 +10,13 @@ export default class TodoListPage {
   public readonly completedTodosPageURL: string;
   public readonly activeTodosPageURL: string;
 
+  public readonly completeAllTodosButton: Locator;
   public readonly addTodoInputField: Locator;
   public readonly addButton: Locator;
 
   public readonly todoList: Locator;
   public readonly todoRows: Locator;
+  public readonly completedTodoRows: Locator;
 
   public readonly editModeInput: Locator;
 
@@ -29,11 +31,14 @@ export default class TodoListPage {
     this.completedTodosPageURL = `${this.baseURL}completed`;
     this.activeTodosPageURL = `${this.baseURL}active`;
 
+    this.completeAllTodosButton = this.page.getByRole('checkbox', { name: 'marks all active todos as completed' });
     this.addTodoInputField = this.page.locator('input[placeholder="What needs to be done?"]');
     this.addButton = this.page.getByRole('button', { name: 'Add', exact: true });
 
     this.todoList = this.page.locator('ul');
     this.todoRows = this.page.locator('li');
+
+    this.completedTodoRows = this.page.locator('.completed');
 
     this.editModeInput = this.page.getByTestId('edit-mode-input');
 
