@@ -1,7 +1,7 @@
 <li
   class="todo-row list-group-item"
   #todoRowRef
-  [ngClass]="{ 'py-0': isEditing }"
+  [ngClass]="{ 'py-0': isEditing, 'completed': todo.done }"
   data-bs-toggle="tooltip"
   data-bs-placement="top"
   data-bs-html="true"
