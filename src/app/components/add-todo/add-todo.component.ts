@@ -82,10 +82,11 @@ export class AddTodoComponent implements OnInit, OnDestroy {
     return this.router.url === APP_ROUTES.HOME_ACTIVE;
   }
 
-  public onCompleteAllActiveTodos(event: MouseEvent) {
-    this.todoService.completeAllActiveTodos();
+  public onToggleCompleteTodos(event: MouseEvent) {
+    if (!this.isChecked) this.todoService.completeAllActiveTodos();
+    else this.todoService.incompleteAllTodos();
 
-    if (this.isActiveTodosView && this.todos.length && this.hasNoActiveTodos) event.preventDefault();
+    if (this.isActiveTodosView) event.preventDefault();
   }
 
   public get isChecked(): boolean {
@@ -94,7 +95,11 @@ export class AddTodoComponent implements OnInit, OnDestroy {
 
   public get isCheckboxDisabled(): boolean {
     const isCompletedTodosView = this.router.url === APP_ROUTES.HOME_COMPLETED;
+    if (isCompletedTodosView && this.hasNoActiveTodos) return true;
+    return !this.isActiveTodosView && (!this.todos.length || this.hasNoActiveTodos);
+  }
 
-    return (!this.isActiveTodosView && this.hasNoActiveTodos) || (isCompletedTodosView && !this.hasNoActiveTodos);
+  public get ariaLabel(): string {
+    return this.isChecked ? 'Mark all completed todos as incomplete' : 'Mark all active todos as completed';
   }
 }

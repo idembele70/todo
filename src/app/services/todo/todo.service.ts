@@ -166,4 +166,21 @@ export class TodoService {
 
     if (updated) this.emitTodos();
   }
+
+  /**
+   * Mark all completed todos as incomplete.
+   */
+  public incompleteAllTodos() {
+    let updated = false;
+
+    this._todos.forEach((todo) => {
+      if (todo.done) {
+        todo.done = false;
+        todo.updatedAt = Date.now();
+        updated = true;
+      }
+
+      if (updated) this.emitTodos();
+    });
+  }
 }
