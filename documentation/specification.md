@@ -362,7 +362,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Nominal Process:
 
-1. The user clicks the "Mars all as incomplete todos" button.
+1. The user clicks the "Marks all as incomplete todos" button.
 
 ##### Alternative Flows:
 
