@@ -4,11 +4,11 @@
   <div [ngClass]="{ 'cursor-not-allowed': isCheckboxDisabled }" class="input-group-text">
     <input
       [disabled]="isCheckboxDisabled"
-      (click)="onCompleteAllActiveTodos($event)"
+      (click)="onToggleCompleteTodos($event)"
       [checked]="isChecked"
       type="checkbox"
       class="form-check-input mt-0"
-      aria-label="marks all active todos as completed"
+      [ariaLabel]="ariaLabel"
     />
   </div>
   <input

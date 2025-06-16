@@ -215,4 +215,20 @@ describe('TodoService', () => {
       expect(emitTodosSpy).not.toHaveBeenCalled();
     });
   });
+
+  describe('incompleteAllTodos()', () => {
+    beforeEach(() => {
+      todoService.completeAllActiveTodos();
+      emitTodosSpy.calls.reset();
+    });
+
+    it('should incomplete all todos and emit', () => {
+      todoService.incompleteAllTodos();
+
+      const hasCompletedTodos = todoService.todoSubject.value.some((todo) => todo.done);
+
+      expect(hasCompletedTodos).toBeFalse();
+      expect(todoService.emitTodos).toHaveBeenCalled();
+    });
+  });
 });
