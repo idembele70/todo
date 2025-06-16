@@ -94,9 +94,14 @@ export class AddTodoComponent implements OnInit, OnDestroy {
   }
 
   public get isCheckboxDisabled(): boolean {
+    if (!this.todos.length) return true;
+
     const isCompletedTodosView = this.router.url === APP_ROUTES.HOME_COMPLETED;
-    if (isCompletedTodosView && this.hasNoActiveTodos) return true;
-    return !this.isActiveTodosView && (!this.todos.length || this.hasNoActiveTodos);
+    if (isCompletedTodosView && !this.hasNoActiveTodos) return true;
+
+    if (this.isActiveTodosView && (!this.todos.length || this.hasNoActiveTodos)) return true;
+
+    return false;
   }
 
   public get ariaLabel(): string {
