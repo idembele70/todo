@@ -11,6 +11,7 @@ export default class TodoListPage {
   public readonly activeTodosPageURL: string;
 
   public readonly completeAllTodosButton: Locator;
+  public readonly incompleteAllTodosCheckbox: Locator;
   public readonly addTodoInputField: Locator;
   public readonly addButton: Locator;
 
@@ -31,7 +32,10 @@ export default class TodoListPage {
     this.completedTodosPageURL = `${this.baseURL}completed`;
     this.activeTodosPageURL = `${this.baseURL}active`;
 
-    this.completeAllTodosButton = this.page.getByRole('checkbox', { name: 'marks all active todos as completed' });
+    this.completeAllTodosButton = this.page.getByRole('checkbox', { name: 'Mark all active todos as completed' });
+    this.incompleteAllTodosCheckbox = this.page.getByRole('checkbox', {
+      name: 'Mark all completed todos as incomplete',
+    });
     this.addTodoInputField = this.page.locator('input[placeholder="What needs to be done?"]');
     this.addButton = this.page.getByRole('button', { name: 'Add', exact: true });
 
