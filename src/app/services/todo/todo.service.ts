@@ -179,8 +179,8 @@ export class TodoService {
         todo.updatedAt = Date.now();
         updated = true;
       }
-
-      if (updated) this.emitTodos();
     });
+
+    if (updated) this.emitTodos();
   }
 }
