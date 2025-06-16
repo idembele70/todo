@@ -332,21 +332,21 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Preconditions:
 
-- The user is on the Todo List page (`/home/(all | active | completed)`).
-- At least one todo item exists in the list.
+- The user is on the Todo List page (`/home/(all | active)`).
 - At least one active todo item exists in the list.
 
 ##### Nominal Process:
 
-1. The user clicks the "Complete all active todos" button.
+1. The user clicks the "Mark all active todos as completed" checkbox.
 
 ##### Alternative Flows:
 
-- If no active todos exist, the button is disabled.
+- If no active todos exist, the checkbox is disabled.
 
 ##### Postconditions:
 
 - All the active todos are marked as completed.
+- The "Mark all active todos as completed" checkbox is checked only when the user is on the "All Todos" page.
 
 
 #### TL-0012 - Incomplete Todos
