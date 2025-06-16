@@ -357,8 +357,8 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Preconditions:
 
-- The user is on the Todo List page (`/home/all`).
-- Todos in the current view are marked as completed.
+- The user is on the Todo List page (`/home/(all | completed)`).
+- All existing todos are marked as completed.
 
 ##### Nominal Process:
 
@@ -366,7 +366,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Alternative Flows:
 
-- If some todos are already incomplete, clicking the button will still mark all todos as incomplete.
+- None.
 
 ##### Postconditions:
 
