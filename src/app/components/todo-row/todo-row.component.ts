@@ -6,6 +6,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -22,7 +23,7 @@ import { TodoService } from '../../services/todo/todo.service';
   templateUrl: './todo-row.component.html',
   styleUrl: './todo-row.component.css',
 })
-export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
+export class TodoRowComponent implements AfterViewChecked, AfterViewInit, OnDestroy {
   @Input() todo: Todo;
 
   disableCheckbox: boolean;
@@ -38,7 +39,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   @ViewChild('editInputRef') inputRef?: ElementRef;
   @ViewChild('todoRowRef', { static: false }) todoRowRef?: ElementRef;
 
-  tooltipInstance?: Tooltip;
+  tooltipInstance: Tooltip | null = null;
   hasFocusedInput: boolean;
 
   clickCount: number;
@@ -138,6 +139,7 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
   destroyTooltip() {
     if (this.tooltipInstance) {
       this.tooltipInstance.dispose();
+      this.tooltipInstance = null;
     }
   }
 
@@ -148,7 +150,6 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
       this.clickTimer = setTimeout(() => {
         const todoPagePath = '/todo';
 
-        this.destroyTooltip();
         this.clickCount = 0;
         this.router.navigate([todoPagePath, this.todo.id]);
       }, this.DOUBLE_CLICK_DELAY);
@@ -156,5 +157,9 @@ export class TodoRowComponent implements AfterViewChecked, AfterViewInit {
       clearTimeout(this.clickTimer);
       this.onEnterEditMode();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyTooltip();
   }
 }
