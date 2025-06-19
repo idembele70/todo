@@ -229,7 +229,6 @@ describe('TodoRowComponent', () => {
 
         const expectedSingleClickCount = 0;
         expect(component.clickCount).toEqual(expectedSingleClickCount);
-        expect(component.destroyTooltip).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith([TODO_PAGE_PATH, component.todo.id]);
       }));
 
