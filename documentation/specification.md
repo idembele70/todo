@@ -47,6 +47,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Clear Completed Todos       | /home/(all \| active \| completed)               | TL-0010     | Clear Completed Todos             | [✅](#tl-0010---clear-completed-todos) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0010-clear-completed-todos.spec.ts) | 🟢        |          |
 |           | └─ Completed Active Todos       | /home/(all \| active \| completed)               | TL-0011     | Completed Active Todos             | [✅](#tl-0011---complete-active-todos) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0011-complete-active-todos.spec.ts) | 🟢        |          |
 |           | └─ Incomplete Todos       | /home/(all \| completed)               | TL-0012     | Incomplete Todos             | [✅](#tl-0012---incomplete-todos) |    [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/02_TL/02_TL-0012-incompleted-todos.spec.ts) | 🟢        |          |
+|           | └─ Hide Todos Tooltip       | /home/(all \| active \| completed)               | TL-0013     | Hide Todos Tooltip             | [✅](#tl-0013---hide-todos-tooltip) |    ❌ | 🟢        |          |
 | 03        | **Todo**           | —           | —      | —           | —                         | —                                                                                                         | —        |          |
 |         | └─ Todo Details           | /todo/:todoId           | T-0001      | View Todo Details           | [✅](#t-0001---view-todo-details)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0001-view-todo-details.spec.ts)                                                                                                         | 🟢        |          |
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
@@ -371,6 +372,30 @@ Note: All the paths will follow the **BaseURL**:
 ##### Postconditions:
 
 - All the todos are now marked as incomplete.
+
+#### TL-0013 - Hide Todos Tooltip
+
+##### Quick Description:
+
+- The application should hide any visible tooltip when navigating away from the Todo List view.
+
+##### Preconditions:
+
+- The user is on the Todo List page (`/home/(all | active | completed)`).
+- At least two todo items exist in the list.
+
+##### Nominal Process:
+
+1. The user clicks on the content of a todo.
+2. The user hovers over another todo row.
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- Any tooltip that was visible before navigation is no longer visible after redirection.
 
 ---
 
