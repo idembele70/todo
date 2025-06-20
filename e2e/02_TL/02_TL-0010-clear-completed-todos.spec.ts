@@ -13,12 +13,10 @@ test.describe('remove completed todos with a single click', { tag: '@TodoListPag
     }
   });
 
-  test('remove all completed todos', async ({ todoListPage, page }) => {
+  test('remove all completed todos', async ({ todoListPage, footerComponent }) => {
     const todoRow = todoListPage.getTodoRowByContent(TODO_CONTENTS[0]);
 
     await todoListPage.completeTodo(todoRow);
-
-    const footerComponent = new FooterComponent(page);
 
     await footerComponent.clickClearCompletedButton();
 
@@ -26,9 +24,7 @@ test.describe('remove completed todos with a single click', { tag: '@TodoListPag
     await expect(todoRow).toBeHidden();
   });
 
-  test('"Clear completed" is hidden if no completed todos', async ({ page }) => {
-    const footerComponent = new FooterComponent(page);
-
+  test('"Clear completed" is hidden if no completed todos', async ({ footerComponent }) => {
     await expect(footerComponent.clearCompletedButton).toHaveCount(0);
   });
 });

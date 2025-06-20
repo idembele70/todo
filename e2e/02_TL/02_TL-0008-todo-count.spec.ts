@@ -13,9 +13,7 @@ test.describe('footer item count display logic', { tag: '@TodoListPage' }, () =>
     }
   });
 
-  test('displays correct item count after adding and deleting todos', async ({ page, todoListPage }) => {
-    const footerComponent = new FooterComponent(page);
-
+  test('displays correct item count after adding and deleting todos', async ({ footerComponent, todoListPage }) => {
     await test.step('Displays count with multiple todos', async () => {
       const expectedCount = 2;
       await expect(footerComponent.todoCount).toHaveText(getItemCountText(expectedCount));
