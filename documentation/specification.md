@@ -53,6 +53,7 @@ The app aims to enhance personal productivity and organization through a clean i
 |           | └─ Edit Todo Content           | /todo/:todoId           | T-0002      | Edit Todo Content           | [✅](#t-0002---edit-todo-content)                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Toggle Todo Completion           | /todo/:todoId           | T-0003      | Toggle Todo Completion           | [✅](#t-0003---toggle-todo-completion)                         | ❌                                                                                                         | 🟢        |          |
 |           | └─ Delete Todo           | /todo/:todoId           | T-0004      | Delete Todo           | [✅](#t-0004---delete-todo)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/03_T/03_T-0004-delete-todo.spec.ts)                                                      | 🟢        |          |
+|           | └─ Hide App Footer           | /todo/:todoId           | T-0005      | Hide App Footer           | [✅](#t-0005---hide-app-footer)                         | ❌                                                      | 🟢        |          |
 | 04        | **Not Found**      | /\*                     | NF-0000     | Not Found View          | [✅](#nf-0000---not-found-view)                         | [✅](https://github.com/idembele70/todo-angular-seventeen/blob/main/e2e/04_NF/04_NF-0000-not-found-view.spec.ts)           | 🟢        |          |
 
 Note: All the paths will follow the **BaseURL**:
@@ -521,6 +522,28 @@ Note: All the paths will follow the **BaseURL**:
 
 - The todo item is deleted.
 - The user is redirected to the Todo List page `/home/all`
+
+#### T-0005 - Hide App Footer
+
+##### Quick Description:
+
+- The application should hide the app footer on todo details view.
+
+##### Preconditions:
+
+- The user is on Todo Detail Page (`/todo/:id`)
+
+##### Nominal Process:
+
+- None
+
+##### Alternative Flows:
+
+- None.
+
+##### Postconditions:
+
+- The footer is hidden via CSS when URL doesn't match `/home/*`.
 
 ---
 
