@@ -543,7 +543,7 @@ Note: All the paths will follow the **BaseURL**:
 
 ##### Postconditions:
 
-- The footer is hidden via CSS when URL doesn't match `/home/*`.
+- The footer is hidden when URL doesn't match `/home/*`.
 
 ---
 
