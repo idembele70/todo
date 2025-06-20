@@ -1,7 +1,7 @@
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { Path } from '../../models/path.type';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo/todo.service';
@@ -25,6 +25,11 @@ export class TodoListComponent implements OnInit, OnDestroy {
     private router: ActivatedRoute,
   ) {
     this.todos$ = this.todoService.filteredTodos$;
+    this.todos$.pipe(
+      tap((v) => {
+        console.log('Value: ' + v);
+      }),
+    );
 
     this.pathSubscription = new Subscription();
   }

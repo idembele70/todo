@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { AddTodoComponent } from '../../components/add-todo/add-todo.component';
 import { TodoListComponent } from '../../components/todo-list/todo-list.component';
+import { FooterComponent } from '@app/components/footer/footer.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [AddTodoComponent, TodoListComponent],
+  imports: [AddTodoComponent, TodoListComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
